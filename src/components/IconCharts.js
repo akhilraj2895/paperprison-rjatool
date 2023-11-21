@@ -37,7 +37,7 @@ const PersonIcon = ({ value = 0, label = 0, race = '', scale = 1, onDisclaimerCh
                   className={`icon-person re-${race}`}
                   title={valueRoof}
                 >
-                  <use href="/media/sprites.svg#person"></use>
+                  <use href="/images/sprites.svg#person"></use>
                 </svg>
                 <span
                   className="icon-chart-data-point-mask"
@@ -65,14 +65,14 @@ const PersonIcon = ({ value = 0, label = 0, race = '', scale = 1, onDisclaimerCh
 };
 
 const CHART_DISCLAIMER = {
-  "N/A": "N/A: Our tool displays N/A when when there are 10 or less underlying observations.",
+  "N/A": "N/A: Our tool displays N/A when when there are 10 or less underlying observations. Additionally, no disparity gap per prior event information is available for arrests.",
   "0.0": "Anywhere a disparity gap reads 0.0, it means that there were no white adults in the system at that point for a comparison of rates. Please see raw numbers and rates to see how adults of color are impacted by the decision point.",
 }
 
 const SCALE = {
-  100: 10,
+  /*100: 10,
   500: 50,
-  1000: 100,
+  1000: 100,*/
   5000: 500,
   10000: 1000,
   50000: 5000,

@@ -13,7 +13,7 @@ const MEASUREMENTS_MAP = {
   "Rate per prior event point": "Rate per prior decision point",
   "Disparity gap per population": "Disparity gap per 1,000 adults",
   "Disparity gap per prior event point":
-    "Disparity gap per prior decision point",
+  "Disparity gap per prior decision point",
 };
 
 const MEASUREMENTS = Object.keys(MEASUREMENTS_MAP);
@@ -23,8 +23,8 @@ const RACES = {
   Black: "Black",
   Hispanic: "Latino",
   AAPI: "Asian / Pacific Islander",
-  // Native: "Native American",
-  // Other: "Other"
+  Native: "Native American"
+  //Other: "Other",
 };
 
 const getURLQueryParameterByName = (name, url = window.location.href) => {
@@ -35,77 +35,24 @@ const getURLQueryParameterByName = (name, url = window.location.href) => {
   if (!results[2]) return "";
   return decodeURIComponent(results[2].replace(/\+/g, " "));
 };
-
 export default function App() {
   const [yearsAvailable, setYearsAvailable] = useState([]);
   const [loading, setLoading] = useState(true);
   const [years, setYears] = useState([]);
   const [countiesAvailable, _] = useState([
-    "Alameda",
-    "Alpine",
-    "Amador",
-    "Butte",
-    "Calaveras",
-    "Colusa",
-    "Contra Costa",
-    "Del Norte",
-    "El Dorado",
-    "Fresno",
-    "Glenn",
-    "Humboldt",
-    "Imperial",
-    "Inyo",
-    "Kern",
-    "Kings",
-    "Lake",
-    "Lassen",
-    "Los Angeles",
-    "Madera",
-    "Marin",
-    "Mariposa",
-    "Mendocino",
-    "Merced",
-    "Modoc",
-    "Mono",
-    "Monterey",
-    "Napa",
-    "Nevada",
-    "Orange",
-    "Placer",
-    "Plumas",
-    "Riverside",
-    "Sacramento",
-    "San Benito",
-    "San Bernardino",
-    "San Diego",
-    "San Francisco",
-    "San Joaquin",
-    "San Luis Obispo",
-    "San Mateo",
-    "Santa Barbara",
-    "Santa Clara",
-    "Santa Cruz",
-    "Shasta",
-    "Sierra",
-    "Siskiyou",
-    "Solano",
-    "Sonoma",
-    "Stanislaus",
-    "Sutter",
-    "Tehama",
-    "Trinity",
-    "Tulare",
-    "Tuolumne",
-    "Ventura",
-    "Yolo",
-    "Yuba",
+    "County 1",
+    "County 2",
+    "County 3",
+    "County 4",
+    "County 5",
   ]);
-  const [county, setCounty] = useState("Santa Clara");
+  const [county, setCounty] = useState("County 1");
   const [decisionPointsAvailable, setDecisionPointsAvailable] = useState([]);
   const [decisionPoints, setDecisionPoints] = useState([]);
   const [offensesAvailable, setOffensesAvailable] = useState([]);
   const [offenses, setOffenses] = useState([]);
   const [races, setRaces] = useState(Object.keys(RACES));
+  const [racesAvailable, setracesAvailable] = useState([]);
   const [measurement, setMeasurement] = useState("Raw numbers");
   const [chartConfig, setChartConfig] = useState({
     ratio: 1,
@@ -124,8 +71,9 @@ export default function App() {
     utils.book_append_sheet(wb, ws, "Data");
     writeFileXLSX(wb, "PaperPrison - Data.xlsx");
   };
-  const onDataTableDisplayToggled = () => setShowTable(!showTable);
-
+  const onDataTableDisplayToggled = () => {
+    setShowTable(!showTable);
+  };
   const filter = (
     { decisionPoints, races, offenses, years, measurement },
     records = fullRecords
@@ -198,7 +146,7 @@ export default function App() {
 
               return acc;
             },
-            { AAPI: 0, Black: 0, Hispanic: 0, White: 0 }
+            { AAPI: 0, Black: 0, Hispanic: 0, White: 0, Native: 0 }
           );
           return d;
         });
@@ -213,7 +161,7 @@ export default function App() {
     setLoading(true);
     const parser = new PublicGoogleSheetsParser();
     parser
-      .parse("1nJ3k0KXVrhXm8La-lOTpw8U7xL7Cc-GioANxxH5KsXE", sheet)
+      .parse("1mo1CvXXVMoyFDciUwvoNI_0T6LwB5Yl2U4Q6COd_0JI", sheet)
       .then((originItems) => {
         let _years = [];
         const _decisionPoints = [];
@@ -273,6 +221,7 @@ export default function App() {
         setOffenses(_offenses);
         setOffensesAvailable(_offenses);
         setFullRecords(items);
+        setracesAvailable(_races);
         setRaces(_races);
         setLoading(false);
         filter(
@@ -289,7 +238,7 @@ export default function App() {
   };
 
   useEffect(() => {
-    const sheet = getURLQueryParameterByName("sheet") || "Santa Clara";
+    const sheet = getURLQueryParameterByName("sheet") || "County 1";
     fetchData(sheet).catch((e) => {});
   }, []);
 
@@ -318,6 +267,12 @@ export default function App() {
 
   const onDecisionPointChange = (values) => {
     setDecisionPoints(values);
+    if(values.length === 0) {
+    setFilteredRecords({
+      raw: [],
+      chart: []  
+    });
+  } else{ 
     filter({
       races,
       decisionPoints: values,
@@ -325,10 +280,18 @@ export default function App() {
       years,
       measurement,
     });
+  }
+   
   };
 
   const onRacesChange = (values) => {
     setRaces(values);
+    if(values.length === 0) {
+      setFilteredRecords({
+        raw: [],
+        chart: []  
+      });
+    } else{ 
     filter({
       races: values,
       decisionPoints,
@@ -336,7 +299,8 @@ export default function App() {
       years,
       measurement,
     });
-  };
+  }
+};
 
   const onOffensesChange = (values) => {
     setOffenses(values);
@@ -349,8 +313,9 @@ export default function App() {
     });
   };
 
-  const onMeasurementsChange = (value) => {
-    setMeasurement(value);
+ const onMeasurementsChange = (value) => {
+    if(value) {
+      setMeasurement(value);
     if (
       value === "Disparity gap per population" ||
       value === "Disparity gap per prior event point" ||
@@ -371,6 +336,7 @@ export default function App() {
         ratio: 0.1,
       });
     }
+    
     filter({
       races,
       decisionPoints,
@@ -378,6 +344,21 @@ export default function App() {
       years,
       measurement: value,
     });
+    } else {
+      setMeasurement("Raw numbers")
+      setChartConfig({
+        base: null,
+        ratio: 1,
+      });
+      
+    filter({
+      races,
+      decisionPoints,
+      offenses,
+      years,
+      measurement: "Raw numbers",
+    });
+    }
   };
 
   return (
@@ -386,7 +367,7 @@ export default function App() {
         This site provides summary data representing the raw numbers, rates per
         population, and disparity gaps by race of adults in the California
         criminal justice system using data provided by the California Department
-        of Justice.
+        of Justice as well as by Census. Download the Census data <a href="https://docs.google.com/spreadsheets/d/1acKdr3w9NlALgfUt8nLbtSWDqEfVxyQLKuz3r_pGkes/edit#gid=840124101">here</a>.
       </p>
       <div className="filters">
         <div>Customize: </div>
@@ -408,6 +389,7 @@ export default function App() {
             label="Counties"
             value={county}
             multiple={false}
+            disableAll={true}
             onChange={onCountyChange}
             options={countiesAvailable.map((county) => ({
               text: county,
@@ -422,6 +404,18 @@ export default function App() {
             value={decisionPoints}
             onChange={onDecisionPointChange}
             options={decisionPointsAvailable.map((dp) => ({
+              text: dp,
+              value: dp,
+            }))}
+          />
+        </div>
+        <div className="filter">
+          <PrivateSelect
+            label="Race"
+            multiple={true}
+            value={races}
+            onChange={onRacesChange}
+            options={racesAvailable.map((dp) => ({
               text: dp,
               value: dp,
             }))}
@@ -455,16 +449,23 @@ export default function App() {
         <h2>{county}</h2>
         <p dangerouslySetInnerHTML={{__html: [
             MEASUREMENTS_MAP[measurement],
+            years.length === yearsAvailable.length
+            ? "All Years"
+            : years.join(", "),
             decisionPoints.length === decisionPointsAvailable.length
               ? "All Event Points"
-              : offenses.join(", "),
+              : decisionPoints.join(", "),
             offenses.length === offensesAvailable.length
               ? "All Offenses"
               : offenses.join(", "),
           ].filter(item => !!item).map(item => `<span>${item}</span>`).join(";")}} />
       </div>
       <div className="chart-containers">
-        {loading ? (
+       {filteredRecords.chart.length === 0 ? (
+          <div style={{ textAlign: 'center', fontWeight: 'bold' }}>
+      *Select an Event Point
+    </div>
+        ) : loading ? (
           <div className="loading-animation-centered">
             <Grid />
           </div>
@@ -483,7 +484,7 @@ export default function App() {
           Print
         </div>
         <div className="button" onClick={onDataTableDisplayToggled}>
-          View Data
+        {showTable ? "Hide Table" : "View Data"}
         </div>
         <div className="button" onClick={onDataDownload}>
           Download Data

@@ -23,20 +23,30 @@
 ::after,
 ::before {
   box-sizing: border-box;
-  font-family: 'IBM Plex Sans', sans-serif;
+  font-family: "IBM Plex Sans", sans-serif;
+}
+.sub-nav-wrapper {
+  background: linear-gradient(
+    to right,
+    #333,
+    #000
+  ); /* Gradient background from dark gray to black */
+  margin: 0 auto;
+  padding: 10px 0; /* Adjust padding as needed */
+  width: 100%; /* Set width to 100% for full screen width */
+  border-radius: 0 0 20px 20px; /* Rounded edges on the bottom */
+  justify-content: space-around;
 }
 
-.sub-nav-wrapper {
-  margin: 0 auto;
-  padding: 10px 10px 50px;
-  max-width: 1280px;
-  justify-content: space-around;
+.sub-nav-wrapper a {
+  text-decoration: none;
+  color: #e0e1dd !important; /* White or light gray text color */
 }
 
 @media (min-width: 900px), print {
   .sub-nav-wrapper {
     display: flex;
-  } 
+  }
 }
 
 .icon-person {
@@ -143,6 +153,8 @@
   justify-content: center;
   flex-direction: column;
   position: relative;
+  font-family: "IBM Plex Sans", sans-serif;
+  font-weight: bold;
 }
 
 .filter {
@@ -154,7 +166,7 @@
 }
 
 .tool {
-  padding: 10px 10px 50px;
+  padding: 10px 10px 30px;
   max-width: 1280px;
   margin: 0 auto;
 }
@@ -176,7 +188,7 @@
 }
 
 .select-component label {
-  font-weight: bold;
+  font-weight: 200;
   cursor: pointer;
   padding: 5px 10px;
 }
@@ -188,15 +200,14 @@
 .select-component .modal-wrapper {
   position: absolute;
   background-color: #fff;
-  background-clip: padding-box;
   border: 1px solid rgba(0, 0, 0, 0.15);
-  border-radius: 0.25rem;
+  border-radius: 5px; /* Increase border radius for a smoother look */
   width: 300px;
   left: 0;
   top: 100%;
-  background-color: white;
-  padding: 30px;
+  padding: 15px; /* Reduce padding for a cleaner appearance */
   z-index: 9999;
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2); /* Add a subtle box shadow for depth */
 }
 
 .select-component.select-component-counties .modal-wrapper {
@@ -282,6 +293,7 @@
 .buttons {
   display: flex;
   justify-content: flex-end;
+  padding-bottom: 10px;
 }
 
 .buttons .button {
@@ -297,29 +309,45 @@
   color: white;
 }
 
+/* Updated CSS */
 .inner-anchors {
   text-align: center;
   margin-bottom: 30px;
 }
 
 .inner-anchors a {
-  display: block;
+  display: inline-block;
   font-size: 18px;
-  font-weight: 500;
+  font-weight: bold;
   color: #1a73e8;
-  margin-top: 16px;
+  text-decoration: none;
+  padding: 8px 16px; /* Add padding for better spacing */
+  border-radius: 20px; /* Create rounded edges */
+  transition:
+    background-color 0.3s,
+    color 0.3s; /* Smooth transitions for hover effect */
+  margin: 5px;
 }
 
-.rja-tool-header {
-  display: flex;
-  margin: 0 auto;
+.inner-anchors a:hover {
+  background-color: #404040; /* Background color on hover */
+  color: #fff; /* Text color on hover */
+}
+
+/*.rja-tool-header {
+  display: flex;  
   flex-direction: column;
   align-items: center;
   padding: 1.25rem;
+  
+  width: 100%;
+  margin: 0 !important;
+  
+  background-color: #e0e1dd;
 }
 
 .rja-tool-header a {
-  color: #a8a8a8;
+  color: #0d1b2a;
   font-weight: 700;
   padding: 4px 0px;
 }
@@ -334,10 +362,12 @@
 
 .rja-tool-header img:hover {
   transform: scale(1.1);
-}
+}*/
 
 .generic-page {
-  font-family: Lato, sans-serif;
+  font-family:
+    IBM Plex sans,
+    sans-serif;
   font-size: 16px;
   line-height: 1.5;
   text-align: justify;
@@ -346,6 +376,8 @@
 
   letter-spacing: 0.5px;
   word-spacing: 1px;
+
+  /* Layout */
 
   padding-bottom: 60px;
 }
@@ -466,10 +498,10 @@
     padding: 0;
   }
 
-  .rja-tool-header {
+  /* .rja-tool-header {
     flex-direction: row;
     margin: 0 auto 60px;
-    max-width: 1280px;
+    max-width: auto;
     padding: 0;
   }
 
@@ -479,7 +511,7 @@
 
   .rja-tool-header a:first-child {
     margin-right: auto;
-  }
+  }*/
 
   .generic-page {
     max-width: 832px;
@@ -517,4 +549,173 @@
   .footer {
     margin-top: 20vh;
   }
+}
+
+.table-container {
+  width: 100%; /* Set the desired width */
+  margin: 0 auto; /* Center the table horizontally */
+}
+
+.ui.celled.table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.ui.celled.table th,
+.ui.celled.table td {
+  border: 1px solid #ddd;
+  padding: 12px; /* Increase padding for better spacing */
+  text-align: center; /* Center-align table cell content */
+}
+
+.ui.celled.table th {
+  background-color: #f2f2f2;
+}
+
+.pagination-button {
+  padding: 10px 20px;
+  background-color: #007bff; /* Set the background color to a desired color */
+  color: #fff; /* Set the text color to white or another suitable color */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 5px;
+}
+
+.pagination-button:hover {
+  background-color: #0056b3; /* Change the background color on hover */
+}
+
+.description {
+  font-weight: normal; /* Non-bold */
+  font-size: 12px; /* Smaller font size */
+  color: grey; /* Grey color */
+  font-family: "IBM Plex Sans", sans-serif; /* Lato font family */
+  margin-top: 05px;
+  margin-left: 5px;
+}
+/* Header.css */
+.rja-tool-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(
+    to right,
+    #f5f5f5,
+    #e0e0e0
+  ); /* Gradient background */
+  color: #333;
+  padding: 10px 20px;
+  border-radius: 10px 10px 0 0; /* Rounded edges */
+  transition:
+    background 0.3s,
+    box-shadow 0.3s; /* Smooth transitions for background and shadow */
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2); /* Shadow effect */
+}
+
+.left {
+  display: flex;
+  align-items: center;
+}
+
+.right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+/* Style the logo image and maintain its original size */
+.left .logo {
+  width: auto;
+  height: auto;
+  max-width: 100px;
+  max-height: 100px;
+}
+
+/* Style the website name with a custom font */
+.website-name {
+  font-size: 30px !important;
+  margin-left: 20px !important;
+  font-family: "IBM Plex Sans", sans-serif !important;
+  transition: color 0.3s;
+}
+
+/* Style the navigation links with a custom font */
+.right a {
+  text-decoration: none;
+  color: #333;
+  font-size: 15px;
+  font-weight: 600;
+  font-family: "IBM Plex Sans", sans-serif !important;
+  transition: color 0.3s;
+}
+
+/* Hover effect for navigation links and header background color */
+.right a:hover {
+  text-decoration: underline;
+  color: #007bff;
+}
+
+.rja-tool-header:hover {
+  background: linear-gradient(
+    to right,
+    #e0e0e0,
+    #f5f5f5
+  ); /* Change gradient on hover */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3); /* Increase shadow on hover */
+}
+
+.large-initial {
+  font-size: 40px; /* Adjust the font size as needed */
+  color: #000408; /* Change to the color you want */
+  font-weight: bold;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .rja-tool-header {
+    flex-direction: column;
+    padding: 10px;
+    align-items: flex-start;
+  }
+
+  .right {
+    margin-top: 20px;
+  }
+
+  .website-name {
+    font-size: 16px;
+    margin-left: 0;
+  }
+}
+
+/* Add this CSS to your project's stylesheet or a separate CSS file */
+.back-to-top {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: linear-gradient(
+    to bottom,
+    #000,
+    #333
+  ); /* Apply a black gradient */
+  color: #fff; /* Change the text color to white */
+  font-size: 24px; /* Change the font size */
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4); /* Add a shadow effect */
+}
+
+.back-to-top:hover {
+  background: linear-gradient(
+    to bottom,
+    #333,
+    #666
+  ); /* Change the background gradient on hover */
 }

@@ -75,7 +75,7 @@ const Select = ({
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [wrapperRef]);
-
+  
   return (
     <div className={`select-component select-component-${labelId}`}>
       <label onClick={toggleModal} className={show ? "modal-actived" : ""}>
@@ -91,7 +91,7 @@ const Select = ({
                 All
               </li>
             )}
-            {options.map((option) => (
+            {options.map((option, index) => (
               <li key={option.text} onClick={() => onItemToggle(option.value)}>
                 <input
                   type="checkbox"
@@ -102,6 +102,10 @@ const Select = ({
                   }
                 />{" "}
                 {option.text}
+                {label === "Measurement" && index === 4 && (
+                  <div className="description">No disparity gap per prior event information is available for arrests because arrests are the beginning of the process.</div>
+                )}
+                
               </li>
             ))}
           </ul>

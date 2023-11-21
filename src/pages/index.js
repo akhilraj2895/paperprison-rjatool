@@ -103,23 +103,7 @@ export default function App() {
       <GenericPage id="about-the-data">
         <h2>About the Data</h2>
         <p>
-          The source for data on this site is a comprehensive dataset of all
-          arrests, charges, convictions, and sentences in California (Criminal
-          Offender Record Information (CORI)), available to researchers through
-          the California Department of Justice Automated Criminal History System
-          (ACHS) through a data sharing agreement. The Paper Prison Initiative
-          requested these data through public records act requests. Our records
-          were downloaded between 9/23/2021 and 9/29/2021; the data we present
-          therefore ranges from 2010 through most of 2021.<b>*</b> Among its known
-          disadvantages are that it does not include information on legal
-          representation, plea-bargaining, or the conditions of the arrest (such
-          as whether or not a weapon was present) which might legitimately be
-          taken into account by the prosecution in deciding to characterize a
-          crime as a felony or misdemeanor. Two additional shortcomings of our
-          database are that it does not include juvenile records or out-of-state
-          records. Errors in underlying data are due to reporting errors and/or
-          fundamental limitations to the Automated Criminal History System set
-          up and maintained by CA DOJ.
+        The source for data on this site is a comprehensive dataset of all arrests, charges, convictions, and sentences in California (Criminal Offender Record Information (CORI)), available to researchers through the California Department of Justice Automated Criminal History System (ACHS) through a data sharing agreement. The Paper Prison Initiative requested these data through public records act requests. Our records were downloaded between 9/23/2021 and 9/29/2021; the data we present therefore ranges from 2010 through most of 2021.* Among its known disadvantages are that it does not include information on legal representation, plea-bargaining, or the conditions of the arrest (such as whether or not a weapon was present) which might legitimately be taken into account by the prosecution in deciding to characterize a crime as a felony or misdemeanor. Two additional shortcomings of our database are that it does not include juvenile records or out-of-state records. Errors in underlying data are due to reporting errors and/or fundamental limitations to the Automated Criminal History System set up and maintained by CA DOJ.
         </p>
 
         <p><b>*</b>2020 and 2021 rates per population are adjusted upward to account for apparent undercount in those years. The adjustment factor is to take the count of incidents and inflate it by a factor of mean_total#incidents(2015-2019)/total#incidents(2020 or 2021).</p>
@@ -127,16 +111,11 @@ export default function App() {
       <GenericPage id="methodology">
         <h2>Methodology</h2>
         <p>
-          On the "Paper Prison Initiative Tool" page, you can customize the data
-          in various ways. This methodology section presents important
-          information about the data provided throughout this website and how
-          you can use them for your own analysis.
+        On the "Paper Prison Initiative Tool" page, you can customize the data in various ways. This methodology section presents important information about the data provided throughout this website and how you can use them for your own analysis.
         </p>
         <h3>Customization</h3>
         <p>
-          You can customize the data provided by year, counties, event points,
-          measurement, and offenses. Data you see will depend upon your
-          customization for each category.
+        You can customize the data provided by year, counties, event points, measurement, and offenses. Data you see will depend upon your customization for each category. For arrest events, the year is conveyed as the minimum (first) year for the cycle, where a cycle is defined as the series of events in the criminal justice system that flow from a specific initial incident for an individual, usually beginning with an arrest. For court events (all non-arrest events), the year is conveyed as the maximum (last) year for the cycle. Note that this is a simplifying assumption to deal with the fact that someone might be arrested on a charge in one year and go to court in a subsequent year.
         </p>
         <p>
           The tool allows you to walk through the offenses’ different stages and
@@ -144,19 +123,8 @@ export default function App() {
         </p>
         <h3>Offense Data</h3>
         <p>
-          By default, you will see data about all offenses at the selected event
-          point(s). For this first release, offense data includes the
-          top twenty criminal offenses (see list below). The criminal offense
-          data is limited to the top twenty offenses because the number of all
-          offenses is large, with very small sample sizes for many offenses,
-          especially at the county-specific level. Each Penal Code subsection is
-          treated as a distinct offense. Some common offenses are for probation
-          violations (e.g., Penal Code section 1203.2), and their only
-          corresponding event point is arrest. For any given incident, the
-          offense charged at court and disposition may be different from the
-          offense charged at arrest. So, the probability of a particular outcome
-          conditional on the prior event point may reflect imprecision going
-          from arrest to court event.
+        By default, you will see data about all offenses at the selected event point(s). Offense data include all criminal offenses; however, there are very small sample sizes for many offenses and populations, especially at the county-specific level. Due to confidentiality concerns, our website does not display data for counties in which the metric of interest is constructed from selections of the data that contain fewer than 10 observations. Our charts and tables will show gaps and/or "N/A" when data are not available.
+Each Penal Code subsection is treated as a distinct offense. Users should be aware that identifying offenses with PC subsections lumps together some charges that come under a single subsection but have different consequences. Examples would include so-called “wobbler” offenses that may be charged as felonies or misdemeanors under some conditions. Some common offenses are for probation violations (e.g., Penal Code section 1203.2), and their only corresponding event point is arrest. For any given incident, the offense charged at court and disposition may be different from the offense charged at arrest. So, the probability of a particular outcome conditional on the prior event point may reflect imprecision going from arrest to court event.
         </p>
 
         <table>
@@ -255,16 +223,9 @@ export default function App() {
         </p>
         <h3>Racial Disparity Gaps</h3>
         <p>
-          System-generated data, such as databases of criminal records that
-          include racial identifiers, offer the potential to bring large amounts
-          of quantitative evidence to bear on questions of racial disparities at
-          various points in the criminal justice process. Racial disparities in
-          arrest rates, charging, convictions, and sentencing can be quantified
-          and organized by specific offense and for individuals with comparable
-          criminal histories, county by county. Such comparisons might be
-          thought to provide comparisons of similarly situated individuals
-          engaged in similar conduct, and we leverage some carefully designed
-          comparisons of this nature in our cases.
+        System-generated data, such as databases of criminal records that include racial identifiers, offer the potential to bring large amounts of quantitative evidence to bear on questions of racial disparities at various points in the criminal justice process. Racial disparities in arrest rates, charging, convictions, and sentencing can be quantified and organized by specific offense and for individuals with comparable criminal histories, county by county. Such comparisons might be thought to provide comparisons of similarly situated individuals engaged in similar conduct, and we leverage some carefully designed comparisons of this nature in our cases.
+To quantify disparities across racial and ethnic groups, the tool provides calculations of the racial disparity gap relative to White non-Hispanic individuals. The racial disparity gap can be considered the relative chances that a person of the given race experiences a certain outcome or decision, relative to the chances of a non-Hispanic White adult, given underlying populations. For example, suppose that in a particular county in a particular year for a particular offense, there were 2 felony convictions per 100 Black adults in the population, compared with 1 felony conviction per 100 White non-Hispanic adults. Then the disparity gap per population for Black relative to White is 2/1 = 2.
+
         </p>
         <p>
           To quantify disparities across racial and ethnic groups, the tool
@@ -280,9 +241,7 @@ export default function App() {
         </p>
         <h3>Event Points</h3>
         <p>
-          The event points provide a different lens on the issue of disparity
-          gap because the comparison of disparities at each step in the criminal
-          justice process is conditional on the step that preceded it.
+        Racial disparities can occur at each of a number of specific event points in the criminal justice system. The tool provides metrics at the following specific event points.
         </p>
         <p>
           For instance, the event point “Court” means that certain actions
@@ -313,8 +272,7 @@ export default function App() {
           of the data are described below.
         </p>
         <p>
-          <b>Raw numbers</b> means the actual number of persons in that
-          category.
+          <b>Raw numbers</b> counts the actual number of incidents in that category. For example, for a specific offense, county, year, and race, there might have been 450 charges filed at court. Note that the tool counts incidents, not individuals. The 450 charges might represent fewer than 450 individuals, because a given individual might have been charged on multiple counts of the same offense for a given arrest, or might have been charged with the same offense on more than one occasion.
         </p>
         <p>
           <b>Rates and disparity gaps per population</b> are calculated using
