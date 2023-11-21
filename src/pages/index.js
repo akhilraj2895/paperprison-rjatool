@@ -242,10 +242,13 @@ To quantify disparities across racial and ethnic groups, the tool provides calcu
         <p>
         Racial disparities can occur at each of a number of specific event points in the criminal justice system. The tool provides metrics at the following specific event points.
         </p>
-        <p>
-          For instance, the event point “Court” means that certain actions
-          (i.e., a person was charged) took place at the court level.
-        </p>
+        <ul>
+          <li>Arrest</li>
+          <li>Charge filed at court</li>
+          <li>Conviction</li>
+          <li>Felony conviction</li>
+          <li>Prison sentence</li>
+        </ul>
         <p>
           Because each step represents a event point where discretion is   
           exercised, the steps reveal disparities in outcomes for individuals
