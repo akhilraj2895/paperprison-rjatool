@@ -2,6 +2,7 @@ import React from "react";
 import dynamic from "next/dynamic";
 
 import GenericPage from "@/components/GenericPage";
+import BackToTopButton from "@/components/BackToTopButton";
 
 const DynamicTool = dynamic(() => import("@/components/Tool"), {
   ssr: false,
@@ -482,6 +483,8 @@ To quantify disparities across racial and ethnic groups, the tool provides calcu
           The Paper Prisons Initiative (paperprisons.org) is a multi-disciplinary research initiative focused on documenting and narrowing the “second chance gap” between eligibility for relief from the criminal justice system and its delivery due to hurdles in access to relevant information and data. The paper that describes the concept of the “second chance gap” is Colleen V. Chien, “America’s Paper Prisons: The Second Chance Gap,”119 Mich. L. Rev. 519 (2020)
         </p>
       </GenericPage>
+      <BackToTopButton />
+
     </DynamicLayout>
   );
 }
