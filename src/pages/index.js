@@ -14,7 +14,6 @@ export default function App() {
   return (
     <DynamicLayout>
       <div className="inner-anchors">
-        <h2>PaperPrison RJA Tool</h2>
         <div className="sub-nav-wrapper">
           <a href="?#tool">The Tool</a>
           <a href="?#about-the-tool">About the Tool</a>

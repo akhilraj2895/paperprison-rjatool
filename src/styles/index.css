@@ -26,15 +26,11 @@
   font-family: "IBM Plex Sans", sans-serif;
 }
 .sub-nav-wrapper {
-  background: linear-gradient(
-    to right,
-    #333,
-    #000
-  ); /* Gradient background from dark gray to black */
+  
   margin: 0 auto;
   padding: 10px 0; /* Adjust padding as needed */
   width: 100%; /* Set width to 100% for full screen width */
-  border-radius: 0 0 20px 20px; /* Rounded edges on the bottom */
+  border-radius: 0 0 0 0; /* Rounded edges on the bottom */
   justify-content: space-around;
 }
 
@@ -319,7 +315,7 @@
   display: inline-block;
   font-size: 18px;
   font-weight: bold;
-  color: #1a73e8;
+  color: #0d5f9fc4 !important;
   text-decoration: none;
   padding: 8px 16px; /* Add padding for better spacing */
   border-radius: 20px; /* Create rounded edges */
@@ -330,7 +326,7 @@
 }
 
 .inner-anchors a:hover {
-  background-color: #404040; /* Background color on hover */
+  background-color: #0d5f9fc4; /* Background color on hover */
   color: #fff; /* Text color on hover */
 }
 
@@ -599,18 +595,12 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: linear-gradient(
-    to right,
-    #f5f5f5,
-    #e0e0e0
-  ); /* Gradient background */
   color: #333;
   padding: 10px 20px;
   border-radius: 10px 10px 0 0; /* Rounded edges */
   transition:
     background 0.3s,
     box-shadow 0.3s; /* Smooth transitions for background and shadow */
-  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2); /* Shadow effect */
 }
 
 .left {
