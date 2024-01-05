@@ -13,7 +13,7 @@ const MEASUREMENTS_MAP = {
   "Rate per prior event point": "Rate per prior decision point",
   "Disparity gap per population": "Disparity gap per 1,000 adults",
   "Disparity gap per prior event point":
-  "Disparity gap per prior decision point",
+    "Disparity gap per prior decision point",
 };
 
 const MEASUREMENTS = Object.keys(MEASUREMENTS_MAP);
@@ -23,9 +23,11 @@ const RACES = {
   Black: "Black",
   Hispanic: "Latino",
   AAPI: "Asian / Pacific Islander",
-  Native: "Native American"
+  Native: "Native American",
   //Other: "Other",
 };
+
+const GENDERS = ["Male", "Female"]; // Add more as needed
 
 const getURLQueryParameterByName = (name, url = window.location.href) => {
   const sanitizedName = name.replace(/[[]]/g, "\\$&");
@@ -35,6 +37,7 @@ const getURLQueryParameterByName = (name, url = window.location.href) => {
   if (!results[2]) return "";
   return decodeURIComponent(results[2].replace(/\+/g, " "));
 };
+
 export default function App() {
   const [yearsAvailable, setYearsAvailable] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -99,13 +102,17 @@ export default function App() {
     "Yolo",
     "Yuba",
   ]);
-  const [county, setCounty] = useState("Santa Clara");
+  const [county, setCounty] = useState([]);
   const [decisionPointsAvailable, setDecisionPointsAvailable] = useState([]);
   const [decisionPoints, setDecisionPoints] = useState([]);
   const [offensesAvailable, setOffensesAvailable] = useState([]);
+  const [genders, setGenders] = useState([]);
+  const [gender, setGender] = useState("All Genders");
   const [offenses, setOffenses] = useState([]);
   const [races, setRaces] = useState(Object.keys(RACES));
+
   const [racesAvailable, setracesAvailable] = useState([]);
+
   const [measurement, setMeasurement] = useState("Raw numbers");
   const [chartConfig, setChartConfig] = useState({
     ratio: 1,
@@ -128,8 +135,8 @@ export default function App() {
     setShowTable(!showTable);
   };
   const filter = (
-    { decisionPoints, races, offenses, years, measurement },
-    records = fullRecords
+    { decisionPoints, races, offenses, years, measurement, genders },
+    records = fullRecords,
   ) => {
     const raw = records.filter((r) => {
       if (races.length > 0 && !races.includes(r.Race)) {
@@ -199,7 +206,7 @@ export default function App() {
 
               return acc;
             },
-            { AAPI: 0, Black: 0, Hispanic: 0, White: 0, Native: 0 }
+            { AAPI: 0, Black: 0, Hispanic: 0, White: 0, Native: 0 },
           );
           return d;
         });
@@ -214,12 +221,13 @@ export default function App() {
     setLoading(true);
     const parser = new PublicGoogleSheetsParser();
     parser
-    .parse("1TNp5GmKMqmfO8xsjqjxXMB2n1POzy_8m4nz9c0x_LQI", sheet)
+      .parse("1TNp5GmKMqmfO8xsjqjxXMB2n1POzy_8m4nz9c0x_LQI", sheet)
       .then((originItems) => {
         let _years = [];
         const _decisionPoints = [];
         const _offenses = [];
         const _races = [];
+
         const items = originItems.map((item) => {
           item.Offenses = item.PC_offense;
           item.Race = item.race;
@@ -237,7 +245,7 @@ export default function App() {
             ? 0
             : item.disparity_gap_pop_w;
           item["Disparity gap per prior event point"] = isNaN(
-            item.disparity_gap_cond_w
+            item.disparity_gap_cond_w,
           )
             ? 0
             : item.disparity_gap_cond_w;
@@ -285,13 +293,13 @@ export default function App() {
             years: [mostRecentYear],
             measurement,
           },
-          items
+          items,
         );
       });
   };
 
   useEffect(() => {
-    const sheet = getURLQueryParameterByName("sheet") || "County 1";
+    const sheet = getURLQueryParameterByName("sheet") || "Santa Clara";
     fetchData(sheet).catch((e) => {});
   }, []);
 
@@ -300,6 +308,7 @@ export default function App() {
     await fetchData(value);
     filter({
       races,
+      genders,
       decisionPoints,
       years,
       offenses,
@@ -312,6 +321,7 @@ export default function App() {
     filter({
       races,
       decisionPoints,
+      genders,
       years: values,
       offenses,
       measurement,
@@ -320,45 +330,64 @@ export default function App() {
 
   const onDecisionPointChange = (values) => {
     setDecisionPoints(values);
-    if(values.length === 0) {
-    setFilteredRecords({
-      raw: [],
-      chart: []  
-    });
-  } else{ 
-    filter({
-      races,
-      decisionPoints: values,
-      offenses,
-      years,
-      measurement,
-    });
-  }
-   
+    if (values.length === 0) {
+      setFilteredRecords({
+        raw: [],
+        chart: [],
+      });
+    } else {
+      filter({
+        races,
+        decisionPoints: values,
+        offenses,
+        genders,
+        years,
+        measurement,
+      });
+    }
   };
 
   const onRacesChange = (values) => {
     setRaces(values);
-    if(values.length === 0) {
+    if (values.length === 0) {
       setFilteredRecords({
         raw: [],
-        chart: []  
+        chart: [],
       });
-    } else{ 
-    filter({
-      races: values,
-      decisionPoints,
-      offenses,
-      years,
-      measurement,
-    });
-  }
-};
+    } else {
+      filter({
+        races: values,
+        decisionPoints,
+        offenses,
+        years,
+        measurement,
+      });
+    }
+  };
 
+  const onGendersChange = (values) => {
+    setGenders(values);
+    if (values.length === 0) {
+      setFilteredRecords({
+        raw: [],
+        chart: [],
+      });
+    } else {
+      filter({
+        genders: values,
+        races,
+        decisionPoints,
+        offenses,
+        years,
+        measurement,
+      });
+    }
+  };
   const onOffensesChange = (values) => {
     setOffenses(values);
     filter({
       races,
+      genders,
       decisionPoints,
       offenses: values,
       years,
@@ -366,51 +395,53 @@ export default function App() {
     });
   };
 
- const onMeasurementsChange = (value) => {
-    if(value) {
+  const onMeasurementsChange = (value) => {
+    if (value) {
       setMeasurement(value);
-    if (
-      value === "Disparity gap per population" ||
-      value === "Disparity gap per prior event point" ||
-      value === "Rate per prior event point"
-    ) {
-      setChartConfig({
-        base: "white",
-        ratio: 0.01,
+      if (
+        value === "Disparity gap per population" ||
+        value === "Disparity gap per prior event point" ||
+        value === "Rate per prior event point"
+      ) {
+        setChartConfig({
+          base: "white",
+          ratio: 0.01,
+        });
+      } else if (value === "Raw numbers") {
+        setChartConfig({
+          base: null,
+          ratio: 1,
+        });
+      } else {
+        setChartConfig({
+          base: null,
+          ratio: 0.1,
+        });
+      }
+
+      filter({
+        races,
+        genders,
+        decisionPoints,
+        offenses,
+        years,
+        measurement: value,
       });
-    } else if (value === "Raw numbers") {
+    } else {
+      setMeasurement("Raw numbers");
       setChartConfig({
         base: null,
         ratio: 1,
       });
-    } else {
-      setChartConfig({
-        base: null,
-        ratio: 0.1,
+
+      filter({
+        races,
+        genders,
+        decisionPoints,
+        offenses,
+        years,
+        measurement: "Raw numbers",
       });
-    }
-    
-    filter({
-      races,
-      decisionPoints,
-      offenses,
-      years,
-      measurement: value,
-    });
-    } else {
-      setMeasurement("Raw numbers")
-      setChartConfig({
-        base: null,
-        ratio: 1,
-      });
-      
-    filter({
-      races,
-      decisionPoints,
-      offenses,
-      years,
-      measurement: "Raw numbers",
-    });
     }
   };
 
@@ -420,7 +451,10 @@ export default function App() {
         This site provides summary data representing the raw numbers, rates per
         population, and disparity gaps by race of adults in the California
         criminal justice system using data provided by the California Department
-        of Justice as well as by Census. Download the Census data <a href="https://docs.google.com/spreadsheets/d/1acKdr3w9NlALgfUt8nLbtSWDqEfVxyQLKuz3r_pGkes/edit#gid=840124101">here</a>.
+        of Justice as well as by census. Download the Census data{" "}
+        <a href="https://docs.google.com/spreadsheets/d/1acKdr3w9NlALgfUt8nLbtSWDqEfVxyQLKuz3r_pGkes/edit#gid=840124101">
+          here
+        </a>
       </p>
       <div className="filters">
         <div>Customize: </div>
@@ -441,8 +475,7 @@ export default function App() {
           <PrivateSelect
             label="Counties"
             value={county}
-            multiple={false}
-            disableAll={true}
+            multiple={true}
             onChange={onCountyChange}
             options={countiesAvailable.map((county) => ({
               text: county,
@@ -474,6 +507,7 @@ export default function App() {
             }))}
           />
         </div>
+
         <div className="filter">
           <PrivateSelect
             label="Offenses"
@@ -486,38 +520,48 @@ export default function App() {
             }))}
           />
         </div>
+
         <div className="filter">
-          <PrivateSelect
-            label="Measurement"
-            value={measurement}
-            onChange={onMeasurementsChange}
-            options={MEASUREMENTS.map((m) => ({
-              text: m,
-              value: m,
-            }))}
-          />
+          <PrivateSelect label="Gender" value={GENDERS} />
+        </div>
+
+        <div className="filter">
+          <PrivateSelect label="Priors" />
         </div>
       </div>
       <div className="chart-selected">
-        <h2>{county}</h2>
-        <p dangerouslySetInnerHTML={{__html: [
-            MEASUREMENTS_MAP[measurement],
-            years.length === yearsAvailable.length
-            ? "All Years"
-            : years.join(", "),
-            decisionPoints.length === decisionPointsAvailable.length
-              ? "All Event Points"
-              : decisionPoints.join(", "),
-            offenses.length === offensesAvailable.length
-              ? "All Offenses"
-              : offenses.join(", "),
-          ].filter(item => !!item).map(item => `<span>${item}</span>`).join(";")}} />
+        <h2>
+          <h2>
+            {county.length === countiesAvailable.length
+              ? "All Counties"
+              : county.join(", ")}
+          </h2>
+        </h2>
+        <p
+          dangerouslySetInnerHTML={{
+            __html: [
+              MEASUREMENTS_MAP[measurement],
+              years.length === yearsAvailable.length
+                ? "All Years"
+                : years.join(", "),
+              decisionPoints.length === decisionPointsAvailable.length
+                ? "All Event Points"
+                : decisionPoints.join(", "),
+              offenses.length === offensesAvailable.length
+                ? "All Offenses"
+                : offenses.join(", "),
+            ]
+              .filter((item) => !!item)
+              .map((item) => `<span>${item}</span>`)
+              .join(";"),
+          }}
+        />
       </div>
       <div className="chart-containers">
-       {filteredRecords.chart.length === 0 ? (
-          <div style={{ textAlign: 'center', fontWeight: 'bold' }}>
-      *Select an Event Point
-    </div>
+        {filteredRecords.chart.length === 0 ? (
+          <div style={{ textAlign: "center", fontWeight: "bold" }}>
+            *Select an Event Point
+          </div>
         ) : loading ? (
           <div className="loading-animation-centered">
             <Grid />
@@ -531,13 +575,14 @@ export default function App() {
           />
         )}
       </div>
+
       {/* <pre>{JSON.stringify(filteredRecords, null, 4)}</pre> */}
       <div className="buttons">
         <div className="button" onClick={() => window && window.print()}>
           Print
         </div>
         <div className="button" onClick={onDataTableDisplayToggled}>
-        {showTable ? "Hide Table" : "View Data"}
+          {showTable ? "Hide Table" : "View Data"}
         </div>
         <div className="button" onClick={onDataDownload}>
           Download Data

@@ -23,20 +23,20 @@
 ::after,
 ::before {
   box-sizing: border-box;
-  font-family: "IBM Plex Sans", sans-serif;
+  font-family: "Lato", sans-serif;
 }
+
 .sub-nav-wrapper {
-  
+  background-color: #1b263b; /* Change to your desired background color */
   margin: 0 auto;
   padding: 10px 0; /* Adjust padding as needed */
   width: 100%; /* Set width to 100% for full screen width */
-  border-radius: 0 0 0 0; /* Rounded edges on the bottom */
+  max-width: auto;
   justify-content: space-around;
 }
-
 .sub-nav-wrapper a {
   text-decoration: none;
-  color: #e0e1dd !important; /* White or light gray text color */
+  color: #e0e1dd !important;
 }
 
 @media (min-width: 900px), print {
@@ -101,6 +101,8 @@
 .icon-chart-row {
   margin-bottom: 10px;
   min-height: 24px;
+  padding-left: 10px !important;
+  padding-right: 10px !important;
 }
 
 .icon-chart-data {
@@ -149,8 +151,6 @@
   justify-content: center;
   flex-direction: column;
   position: relative;
-  font-family: "IBM Plex Sans", sans-serif;
-  font-weight: bold;
 }
 
 .filter {
@@ -184,7 +184,7 @@
 }
 
 .select-component label {
-  font-weight: 200;
+  font-weight: bold;
   cursor: pointer;
   padding: 5px 10px;
 }
@@ -315,7 +315,7 @@
   display: inline-block;
   font-size: 18px;
   font-weight: bold;
-  color: #0d5f9fc4 !important;
+  color: #1a73e8;
   text-decoration: none;
   padding: 8px 16px; /* Add padding for better spacing */
   border-radius: 20px; /* Create rounded edges */
@@ -326,8 +326,8 @@
 }
 
 .inner-anchors a:hover {
-  background-color: #0d5f9fc4; /* Background color on hover */
-  color: #fff !important; /* Text color on hover */
+  background-color: #1a73e8; /* Background color on hover */
+  color: #fff; /* Text color on hover */
 }
 
 /*.rja-tool-header {
@@ -361,9 +361,7 @@
 }*/
 
 .generic-page {
-  font-family:
-    IBM Plex sans,
-    sans-serif;
+  font-family: Lato, sans-serif;
   font-size: 16px;
   line-height: 1.5;
   text-align: justify;
@@ -486,15 +484,19 @@
 
   .icon-chart-data-label {
     bottom: 0.3em;
+    width: 30px;
+    height: 14px;
     font-size: 0.8rem;
     left: 50%;
+    text-align: center;
     position: absolute;
     transform: translateX(-50%);
     top: auto;
     padding: 0;
+    z-index: 1;
   }
 
-  /* .rja-tool-header {
+  .rja-tool-header {
     flex-direction: row;
     margin: 0 auto 60px;
     max-width: auto;
@@ -507,7 +509,7 @@
 
   .rja-tool-header a:first-child {
     margin-right: auto;
-  }*/
+  }
 
   .generic-page {
     max-width: 832px;
@@ -586,7 +588,7 @@
   font-weight: normal; /* Non-bold */
   font-size: 12px; /* Smaller font size */
   color: grey; /* Grey color */
-  font-family: "IBM Plex Sans", sans-serif; /* Lato font family */
+  font-family: "Lato", sans-serif; /* Lato font family */
   margin-top: 05px;
   margin-left: 5px;
 }
@@ -595,12 +597,18 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  background: linear-gradient(
+    to right,
+    #f5f5f5,
+    #e0e0e0
+  ); /* Gradient background */
   color: #333;
   padding: 10px 20px;
-  border-radius: 10px 10px 0 0; /* Rounded edges */
+  border-radius: 10px; /* Rounded edges */
   transition:
     background 0.3s,
     box-shadow 0.3s; /* Smooth transitions for background and shadow */
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2); /* Shadow effect */
 }
 
 .left {
@@ -624,9 +632,9 @@
 
 /* Style the website name with a custom font */
 .website-name {
-  font-size: 30px !important;
-  margin-left: 20px !important;
-  font-family: "IBM Plex Sans", sans-serif !important;
+  font-size: 20px;
+  margin-left: 10px;
+  font-family: "Lato", sans-serif;
   transition: color 0.3s;
 }
 
@@ -634,9 +642,8 @@
 .right a {
   text-decoration: none;
   color: #333;
-  font-size: 15px;
   font-weight: 600;
-  font-family: "IBM Plex Sans", sans-serif !important;
+  font-family: "Lato", sans-serif;
   transition: color 0.3s;
 }
 
@@ -646,59 +653,17 @@
   color: #007bff;
 }
 
-
+.rja-tool-header:hover {
+  background: linear-gradient(
+    to right,
+    #e0e0e0,
+    #f5f5f5
+  ); /* Change gradient on hover */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3); /* Increase shadow on hover */
+}
 
 .large-initial {
-  font-size: 40px; /* Adjust the font size as needed */
+  font-size: 24px; /* Adjust the font size as needed */
   color: #000408; /* Change to the color you want */
   font-weight: bold;
-}
-
-/* Responsive Styles */
-@media (max-width: 768px) {
-  .rja-tool-header {
-    flex-direction: column;
-    padding: 10px;
-    align-items: flex-start;
-  }
-
-  .right {
-    margin-top: 20px;
-  }
-
-  .website-name {
-    font-size: 16px;
-    margin-left: 0;
-  }
-}
-
-/* Add this CSS to your project's stylesheet or a separate CSS file */
-.back-to-top {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  background: linear-gradient(
-    to bottom,
-    #000,
-    #333
-  ); /* Apply a black gradient */
-  color: #fff; /* Change the text color to white */
-  font-size: 24px; /* Change the font size */
-  border: none;
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4); /* Add a shadow effect */
-}
-
-.back-to-top:hover {
-  background: linear-gradient(
-    to bottom,
-    #333,
-    #666
-  ); /* Change the background gradient on hover */
 }
