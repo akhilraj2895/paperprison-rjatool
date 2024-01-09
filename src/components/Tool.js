@@ -461,7 +461,7 @@ export default function App() {
         {". "}
         For question or comments please email us to{" "}
         <a href="mailto:rja@paperprisons.org?subject=Feedback%20for%20Your%20App">
-          rja.paperprisons.org
+          rja@paperprisons.org
         </a>
       </p>
       <div className="filters">
