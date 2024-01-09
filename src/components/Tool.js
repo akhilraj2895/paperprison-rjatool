@@ -451,7 +451,7 @@ export default function App() {
         This site provides summary data representing the raw numbers, rates per
         population, and disparity gaps by race of adults in the California
         criminal justice system using data provided by the California Department
-        of Justice as well as by census. Download the Census data{" "}
+        of Justice as well as by Census Department. Access the Census data{" "}
         <a
           href="https://docs.google.com/spreadsheets/d/1acKdr3w9NlALgfUt8nLbtSWDqEfVxyQLKuz3r_pGkes/edit#gid=840124101"
           target="_blank"
@@ -459,7 +459,7 @@ export default function App() {
           here
         </a>
         {". "}
-        For question or comments please email us to{" "}
+        For question or comments, please email us at{" "}
         <a href="mailto:rja@paperprisons.org?subject=Feedback%20for%20Your%20App">
           rja@paperprisons.org
         </a>

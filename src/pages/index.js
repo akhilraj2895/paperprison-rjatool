@@ -282,7 +282,14 @@ To quantify disparities across racial and ethnic groups, the tool provides calcu
           population data from the American Community Survey (ACS), which is a
           large national survey run by the U.S. Census. All of our population
           estimates for different ethnicities use the 5-year ACS sample for the
-          combined period 2016-2020. ACS summary tables were accessed through the Census Bureau API interface (see <a href= "https://www.census.gov/programs-surveys/acs/data/data-via-api.html"> https://www.census.gov/programs-surveys/acs/data/data-via-api.html</a>), using the R package tidycensus (see <a href="https://walker-data.com/tidycensus/">https://walker-data.com/tidycensus/</a>).
+          combined period 2016-2020. ACS summary tables were accessed through the Census Bureau API interface (see <a href= "https://www.census.gov/programs-surveys/acs/data/data-via-api.html"> https://www.census.gov/programs-surveys/acs/data/data-via-api.html</a>), using the R package tidycensus (see <a href="https://walker-data.com/tidycensus/">https://walker-data.com/tidycensus/</a>).Census data can be accessed{" "}
+          <a
+            href="https://docs.google.com/spreadsheets/d/1acKdr3w9NlALgfUt8nLbtSWDqEfVxyQLKuz3r_pGkes/edit#gid=840124101"
+            target="_blank"
+          >
+            here
+          </a>
+          {"."}
         </p>
         <table>
           <tr>
