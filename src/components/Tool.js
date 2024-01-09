@@ -102,7 +102,7 @@ export default function App() {
     "Yolo",
     "Yuba",
   ]);
-  const [county, setCounty] = useState([]);
+  const [county, setCounty] = useState(["Santa Clara"]);
   const [decisionPointsAvailable, setDecisionPointsAvailable] = useState([]);
   const [decisionPoints, setDecisionPoints] = useState([]);
   const [offensesAvailable, setOffensesAvailable] = useState([]);
