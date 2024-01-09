@@ -527,6 +527,17 @@ export default function App() {
             }))}
           />
         </div>
+        <div className="filter">
+          <PrivateSelect
+            label="Measurement"
+            value={measurement}
+            onChange={onMeasurementsChange}
+            options={MEASUREMENTS.map((m) => ({
+              text: m,
+              value: m,
+            }))}
+          />
+        </div>
 
         <div className="filter">
           <PrivateSelect label="Gender" value={GENDERS} />
