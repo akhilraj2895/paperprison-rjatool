@@ -702,3 +702,34 @@
     #666
   ); /* Change the background gradient on hover */
 }
+
+
+/* Add this CSS in your styles or style tag */
+.search-bar {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 8px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.search-bar-container {
+  position: relative;
+}
+
+.search-bar {
+  padding-right: 32px !important; /* Adjust the padding based on your preference */
+}
+
+.clear-icon {
+  position: absolute !important;
+  top: 50% !important;
+  transform: translateY(-65%);
+  right: 8px; /* Adjust the right distance based on your preference */
+  cursor: pointer;
+}
+
+.clear-icon:hover {
+  color: #333; /* Change color on hover if desired */
+}
