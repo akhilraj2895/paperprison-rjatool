@@ -133,92 +133,7 @@ export default function App() {
           The tool allows you to walk through the offenses’ different stages and
           observe how they play out throughout the event points.
         </p>
-        <table>
-          <tr>
-            <td>PC_code section</td>
-            <td>PC_offense</td>
-          </tr>
-          <tr>
-            <td>459</td>
-            <td>459 PC-BURGLARY</td>
-          </tr>
-          <tr>
-            <td>148(a)(1)</td>
-            <td>148(A)(1) PC-OBSTRUCT/ETC PUBLIC OFFICER/ETC</td>
-          </tr>
-          <tr>
-            <td>273.5(a)</td>
-            <td>273.5(A) PC-INFL CRPL INJ:SPOUSE/COHAB/DATE</td>
-          </tr>
-          <tr>
-            <td>243(e)(1)</td>
-            <td>243(E)(1) PC-BAT:SPOUSE/EX SP/DATE/ETC</td>
-          </tr>
-          <tr>
-            <td>647(f)</td>
-            <td>647(F) PC-DISORDERLY CONDUCT:UNDER INFL DRUG</td>
-          </tr>
-          <tr>
-            <td>3056</td>
-            <td>3056 PC-VIOLATION OF PAROLE:FELONY</td>
-          </tr>
-          <tr>
-            <td>484(a)</td>
-            <td>484(A) PC-THEFT</td>
-          </tr>
-          <tr>
-            <td>496(a)</td>
-            <td>496(A) PC-RECEIVE/ETC KNOWN STOLEN PROPERTY</td>
-          </tr>
-          <tr>
-            <td>1203.2</td>
-            <td>1203.2 PC-PROBATION VIOL:REARREST/REVOKE</td>
-          </tr>
-          <tr>
-            <td>245(a)(1)</td>
-            <td>245(A)(1) PC-ASSAULT W/DEADLY WEAPON:NOT F/ARM</td>
-          </tr>
-          <tr>
-            <td>853.7</td>
-            <td>853.7 PC-FAIL TO APPEAR AFTER WRITTEN PROMISE</td>
-          </tr>
-          <tr>
-            <td>242</td>
-            <td>242 PC-BATTERY</td>
-          </tr>
-          <tr>
-            <td>211</td>
-            <td>211 PC-ROBBERY</td>
-          </tr>
-          <tr>
-            <td>422</td>
-            <td>422 PC-THREATEN CRIME WITH INTENT TO TERRORIZE</td>
-          </tr>
-          <tr>
-            <td>3455</td>
-            <td>3455 PC-POST RELEASE COMMUNITY SUPV VIOLATION</td>
-          </tr>
-          <tr>
-            <td>487(a)</td>
-            <td>487(A) PC-GRAND THEFT:MONEY/LABOR/PROP</td>
-          </tr>
-          <tr>
-            <td>148.9(a)</td>
-            <td>148.9(A) PC-FALSE ID TO SPECIFIC PEACE OFICERS</td>
-          </tr>
-          <tr>
-            <td>273.6(a)</td>
-            <td>273.6(A) PC-VIO CRT ORD TO PREVNT DOMESTC VIOL</td>
-          </tr>
-          <tr>
-            <td>182(a)(1)</td>
-            <td>182(A)(1) PC-CONSPIRACY:COMMIT CRIME</td>
-          </tr>
-          <tr>
-            <td>1203.2(a)</td>
-            <td>1203.2(A) PC-PROBATION VIOL:REARREST/REVOKE</td>
-          </tr>
-        </table>
+        
         <p>
           Wobblers account for just under a third of the penal-code dispositions
           in our criminal records data. Wobbler charging (misdemeanor vs.
@@ -307,95 +222,7 @@ export default function App() {
           {"."}
         </p>
         <p>Example: If there were 350 incidents in which Hispanic individuals had been arrested in county X on a charge of PC 459 (burglary) during the year in question, and the Hispanic population of county X was 100,000, the rate per 100 population would be 350/(100,000/100) = 0.35 per 100 population.</p>
-        <table>
-          <tr>
-            <td>Data Notes</td>
-            <td>Description</td>
-            <td>Notes</td>
-            <td>Dimension</td>
-          </tr>
-          <tr>
-            <td>PC_code</td>
-            <td>Penal Code section and subsection (top 20 PC offenses)</td>
-            <td></td>
-            <td>Offenses</td>
-          </tr>
-          <tr>
-            <td>PC_offense</td>
-            <td>Offense description in for this PC code in CORI data</td>
-            <td></td>
-            <td>Offenses</td>
-          </tr>
-          <tr>
-            <td>race</td>
-            <td>Race: Only AAPI, Black, Hispanic, and White (non-Hispanic)</td>
-            <td></td>
-            <td>Race</td>
-          </tr>
-          <tr>
-            <td>year</td>
-            <td>2010-2021: the span of records used here</td>
-            <td></td>
-            <td>Year</td>
-          </tr>
-          <tr>
-            <td>decision</td>
-            <td>
-              The event point: arrest, court decision, conviction, felony
-              conviction, prison sentence
-            </td>
-            <td></td>
-            <td>Event Points</td>
-          </tr>
-          <tr>
-            <td>previous_decision</td>
-            <td>
-              The previous step, which is the number in the denominator of
-              conditional rates
-            </td>
-            <td></td>
-            <td>[new]</td>
-          </tr>
-          <tr>
-            <td>number</td>
-            <td>Number of decisions (at incident level)</td>
-            <td>Number of incidents with that decision</td>
-            <td>Raw numbers</td>
-          </tr>
-          <tr>
-            <td>rate_per_100_pop</td>
-            <td>Number of decisions / county population (race-specific)</td>
-            <td>Number of incidents per 100 population</td>
-            <td>Rate per population</td>
-          </tr>
-          <tr>
-            <td>disparity_gap_pop_w</td>
-            <td>
-              Representation ratio relative to whites = rate_per_100_pop /
-              rate_per_100_pop (white)
-            </td>
-            <td>Ratio: 1.00 means parity with whites</td>
-            <td>Disparity gap per population</td>
-          </tr>
-          <tr>
-            <td>rate_cond_previous</td>
-            <td>
-              Rate of this decision conditional on previous step = Number of
-              this decision / number of previous step decision
-            </td>
-            <td>Percent</td>
-            <td>Rate per prior event point</td>
-          </tr>
-          <tr>
-            <td>disparity_gap_cond_w</td>
-            <td>
-              Relative risk of conditional decision, relative to whites =
-              rate_cond_previous / rate_cond_previous (white)
-            </td>
-            <td>Ratio: 1.00 means parity with whites</td>
-            <td>Disparity gap per prior event point</td>
-          </tr>
-        </table>
+        
         <p>Definitions of key metrics:</p>
         <p>
           <b>Rate per population </b> measures the rate at which a given event or
@@ -493,10 +320,10 @@ export default function App() {
           , whom we thank.
         </p>
         <p>
-          This tool is the creation of Colleen Chien, Bill Sundstrom, Yabo Du,
-          and Nathan Hoffman. Contributors include Arthi Kundadka, Navid
-          Shaghaghi, Yangxier Sui, and Lukas Pinkston and Paper Prisons web and
-          tools team advisor Navid Shaghaghi.
+          This tool represents the collaboration of many dedicated volunteers
+          and Paper Prisons team members including Colleen Chien, Navid Shaghaghi, Bill
+          Sundstrom, Yabo Du, Bennett Cyphers,  Rayna Saron, Akhil Raj,
+          Arthi Kundadka, Yangxier Sui and Lukas Pinkston.
         </p>
         <p>
           For more information about the RJA, please see:
