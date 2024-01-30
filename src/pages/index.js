@@ -321,9 +321,9 @@ export default function App() {
         </p>
         <p>
           This tool represents the collaboration of many dedicated volunteers
-          and Paper Prisons team members including Colleen Chien, Navid Shaghaghi, Bill
-          Sundstrom, Yabo Du, Bennett Cyphers,  Rayna Saron, Akhil Raj,
-          Arthi Kundadka, Yangxier Sui and Lukas Pinkston.
+          and Paper Prisons team members including Bill Sundstrom, Yabo Du, Bennett Cyphers, Rayna Saron,
+          Akhil Raj, Arthi Kundadka, Yangxier Sui, Lukas Pinkston, , Navid
+          Shaghaghi and Colleen Chien.
         </p>
         <p>
           For more information about the RJA, please see:
