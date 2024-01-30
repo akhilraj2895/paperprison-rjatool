@@ -12,7 +12,7 @@ const DATA_DATA_COLUMNS = [
   //   "disparity_gap_pop_w",
   // "Offenses",
   "Race",
-  "Gender",
+  //"Gender",
   "Year",
   "Event Point",
   "Raw numbers",
