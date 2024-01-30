@@ -24,7 +24,7 @@
 ::after,
 ::before {
   box-sizing: border-box;
-  font-family: "Lato", sans-serif;
+  font-family: "IBM Plex Sans", sans-serif;
 }
 .sub-nav-wrapper {
   margin: 0 auto;
@@ -390,7 +390,7 @@
   }*/
 
 .generic-page {
-  font-family: Lato, sans-serif;
+  font-family: "IBM Plex Sans", sans-serif;
   font-size: 16px;
   line-height: 1.5;
   text-align: justify;
@@ -592,17 +592,16 @@
   font-weight: normal;
   font-size: 12px;
   color: grey;
-  font-family: "Lato", sans-serif;
+  font-family: "IBM Plex Sans", sans-serif;
   margin-top: 05px;
   margin-left: 5px;
 }
-
 .rja-tool-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   color: #333;
-  padding: 10px 20px;
+  padding: 20px 20px;
   border-radius: 10px 10px 0 0;
   transition:
     background 0.3s,
@@ -627,11 +626,22 @@
   max-height: 100px;
 }
 
+.center {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .website-name {
   font-size: 30px !important;
-  margin-left: 20px !important;
-  font-family: "Lato", sans-serif !important;
+  margin: 0 auto !important;
+  text-align: center !important;
+  font-family: "IBM Plex Sans", sans-serif !important;
+  font-weight: bold; /* Set font weight to bold */
+  color: #000; /* Set font color to dark */
   transition: color 0.3s;
+  padding-left: 150px; /* Default padding */
 }
 
 .right a {
@@ -639,7 +649,7 @@
   color: #333;
   font-size: 15px;
   font-weight: 600;
-  font-family: "Lato", sans-serif !important;
+  font-family: "IBM Plex Sans", sans-serif !important;
   transition: color 0.3s;
 }
 
@@ -648,17 +658,11 @@
   color: #007bff;
 }
 
-.large-initial {
-  font-size: 40px;
-  color: #000408;
-  font-weight: bold;
-}
-
 @media (max-width: 768px) {
   .rja-tool-header {
     flex-direction: column;
     padding: 10px;
-    align-items: flex-start;
+    align-items: center;
   }
 
   .right {
@@ -667,7 +671,8 @@
 
   .website-name {
     font-size: 16px;
-    margin-left: 0;
+    margin: 10px 0;
+    padding-left: 0; /* Remove padding in mobile view */
   }
 }
 
@@ -721,3 +726,4 @@
 .clear-icon:hover {
   color: #333;
 }
+
