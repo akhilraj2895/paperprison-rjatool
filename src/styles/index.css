@@ -265,7 +265,7 @@
 
 .select-component.select-component-counties ul {
   display: flex;
-  flex-direction: column; /* Arrange items in a column */
+  flex-direction: row; /* Arrange items in a column */
 
   flex-wrap: wrap;
 }
