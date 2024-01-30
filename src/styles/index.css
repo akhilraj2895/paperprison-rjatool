@@ -17,26 +17,26 @@
   --re-unknown-hover: #a35d82;
   --re-white: #bfbfbf;
   --re-white-hover: #d5d5d5;
+  --re-null: #b320d4;
 }
 
 *,
 ::after,
 ::before {
   box-sizing: border-box;
-  font-family: "IBM Plex Sans", sans-serif;
+  font-family: "Lato", sans-serif;
 }
 .sub-nav-wrapper {
-  
   margin: 0 auto;
-  padding: 10px 0; /* Adjust padding as needed */
-  width: 100%; /* Set width to 100% for full screen width */
-  border-radius: 0 0 0 0; /* Rounded edges on the bottom */
+  padding: 10px 0;
+  width: 100%;
+  border-radius: 0 0 0 0;
   justify-content: space-around;
 }
 
 .sub-nav-wrapper a {
   text-decoration: none;
-  color: #e0e1dd !important; /* White or light gray text color */
+  color: #e0e1dd !important;
 }
 
 @media (min-width: 900px), print {
@@ -55,9 +55,12 @@
 }
 
 .re-White,
-.re-white,
-.re-null {
+.re-white {
   color: var(--re-white);
+}
+
+.re-null {
+  color: var(--re-null);
 }
 
 .re-Hispanic {
@@ -197,13 +200,23 @@
   position: absolute;
   background-color: #fff;
   border: 1px solid rgba(0, 0, 0, 0.15);
-  border-radius: 5px; /* Increase border radius for a smoother look */
+  border-radius: 5px;
   width: 300px;
   left: 0;
   top: 100%;
-  padding: 15px; /* Reduce padding for a cleaner appearance */
+  padding: 15px;
   z-index: 9999;
-  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2); /* Add a subtle box shadow for depth */
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
+  overflow-y: auto;
+}
+
+.select-component .modal-wrapper ul {
+  max-height: 500px; /* Set a maximum height for the list */
+  overflow-y: auto; /* Add this line to make the list scrollable */
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
 }
 
 .select-component.select-component-counties .modal-wrapper {
@@ -251,14 +264,14 @@
 }
 
 .select-component.select-component-counties ul {
-  display: flex;
-  flex-wrap: wrap;
+  column-count: 5;
 }
 
 .select-component ul li {
   cursor: pointer;
   font-weight: bold;
   padding: 10px 0;
+  break-inside: avoid;
 }
 
 .select-component ul li input {
@@ -305,7 +318,6 @@
   color: white;
 }
 
-/* Updated CSS */
 .inner-anchors {
   text-align: center;
   margin-bottom: 30px;
@@ -317,17 +329,17 @@
   font-weight: bold;
   color: #0d5f9fc4 !important;
   text-decoration: none;
-  padding: 8px 16px; /* Add padding for better spacing */
-  border-radius: 20px; /* Create rounded edges */
+  padding: 8px 16px;
+  border-radius: 20px;
   transition:
     background-color 0.3s,
-    color 0.3s; /* Smooth transitions for hover effect */
+    color 0.3s;
   margin: 5px;
 }
 
 .inner-anchors a:hover {
-  background-color: #0d5f9fc4; /* Background color on hover */
-  color: #fff !important; /* Text color on hover */
+  background-color: #0d5f9fc4;
+  color: #fff !important;
 }
 
 /*.rja-tool-header {
@@ -359,22 +371,28 @@
 .rja-tool-header img:hover {
   transform: scale(1.1);
 }*/
+/* .rja-tool-header {
+    flex-direction: row;
+    margin: 0 auto 60px;
+    max-width: auto;
+    padding: 0;
+  }
+
+  .rja-tool-header a {
+    padding: 0 10px;
+  }
+
+  .rja-tool-header a:first-child {
+    margin-right: auto;
+  }*/
 
 .generic-page {
-  font-family:
-    IBM Plex sans,
-    sans-serif;
+  font-family: Lato, sans-serif;
   font-size: 16px;
   line-height: 1.5;
   text-align: justify;
-
-  /* Spacing */
-
   letter-spacing: 0.5px;
   word-spacing: 1px;
-
-  /* Layout */
-
   padding-bottom: 60px;
 }
 
@@ -454,7 +472,7 @@
   }
 
   .icon-person-placeholder {
-    height: 10px;
+    height: 0px;
   }
 
   .icon-chart-label {
@@ -493,21 +511,6 @@
     top: auto;
     padding: 0;
   }
-
-  /* .rja-tool-header {
-    flex-direction: row;
-    margin: 0 auto 60px;
-    max-width: auto;
-    padding: 0;
-  }
-
-  .rja-tool-header a {
-    padding: 0 10px;
-  }
-
-  .rja-tool-header a:first-child {
-    margin-right: auto;
-  }*/
 
   .generic-page {
     max-width: 832px;
@@ -548,8 +551,8 @@
 }
 
 .table-container {
-  width: 100%; /* Set the desired width */
-  margin: 0 auto; /* Center the table horizontally */
+  width: 100%;
+  margin: 0 auto;
 }
 
 .ui.celled.table {
@@ -560,8 +563,8 @@
 .ui.celled.table th,
 .ui.celled.table td {
   border: 1px solid #ddd;
-  padding: 12px; /* Increase padding for better spacing */
-  text-align: center; /* Center-align table cell content */
+  padding: 12px;
+  text-align: center;
 }
 
 .ui.celled.table th {
@@ -570,8 +573,8 @@
 
 .pagination-button {
   padding: 10px 20px;
-  background-color: #007bff; /* Set the background color to a desired color */
-  color: #fff; /* Set the text color to white or another suitable color */
+  background-color: #007bff;
+  color: #fff;
   border: none;
   border-radius: 5px;
   cursor: pointer;
@@ -579,28 +582,28 @@
 }
 
 .pagination-button:hover {
-  background-color: #0056b3; /* Change the background color on hover */
+  background-color: #0056b3;
 }
 
 .description {
-  font-weight: normal; /* Non-bold */
-  font-size: 12px; /* Smaller font size */
-  color: grey; /* Grey color */
-  font-family: "IBM Plex Sans", sans-serif; /* Lato font family */
+  font-weight: normal;
+  font-size: 12px;
+  color: grey;
+  font-family: "Lato", sans-serif;
   margin-top: 05px;
   margin-left: 5px;
 }
-/* Header.css */
+
 .rja-tool-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   color: #333;
   padding: 10px 20px;
-  border-radius: 10px 10px 0 0; /* Rounded edges */
+  border-radius: 10px 10px 0 0;
   transition:
     background 0.3s,
-    box-shadow 0.3s; /* Smooth transitions for background and shadow */
+    box-shadow 0.3s;
 }
 
 .left {
@@ -614,7 +617,6 @@
   gap: 20px;
 }
 
-/* Style the logo image and maintain its original size */
 .left .logo {
   width: auto;
   height: auto;
@@ -622,39 +624,33 @@
   max-height: 100px;
 }
 
-/* Style the website name with a custom font */
 .website-name {
   font-size: 30px !important;
   margin-left: 20px !important;
-  font-family: "IBM Plex Sans", sans-serif !important;
+  font-family: "Lato", sans-serif !important;
   transition: color 0.3s;
 }
 
-/* Style the navigation links with a custom font */
 .right a {
   text-decoration: none;
   color: #333;
   font-size: 15px;
   font-weight: 600;
-  font-family: "IBM Plex Sans", sans-serif !important;
+  font-family: "Lato", sans-serif !important;
   transition: color 0.3s;
 }
 
-/* Hover effect for navigation links and header background color */
 .right a:hover {
   text-decoration: underline;
   color: #007bff;
 }
 
-
-
 .large-initial {
-  font-size: 40px; /* Adjust the font size as needed */
-  color: #000408; /* Change to the color you want */
+  font-size: 40px;
+  color: #000408;
   font-weight: bold;
 }
 
-/* Responsive Styles */
 @media (max-width: 768px) {
   .rja-tool-header {
     flex-direction: column;
@@ -672,18 +668,13 @@
   }
 }
 
-/* Add this CSS to your project's stylesheet or a separate CSS file */
 .back-to-top {
   position: fixed;
   bottom: 20px;
   right: 20px;
-  background: linear-gradient(
-    to bottom,
-    #000,
-    #333
-  ); /* Apply a black gradient */
-  color: #fff; /* Change the text color to white */
-  font-size: 24px; /* Change the font size */
+  background: linear-gradient(to bottom, #000, #333);
+  color: #fff;
+  font-size: 24px;
   border: none;
   border-radius: 50%;
   width: 40px;
@@ -696,15 +687,9 @@
 }
 
 .back-to-top:hover {
-  background: linear-gradient(
-    to bottom,
-    #333,
-    #666
-  ); /* Change the background gradient on hover */
+  background: linear-gradient(to bottom, #333, #666);
 }
 
-
-/* Add this CSS in your styles or style tag */
 .search-bar {
   width: 100%;
   padding: 8px;
@@ -719,17 +704,17 @@
 }
 
 .search-bar {
-  padding-right: 32px !important; /* Adjust the padding based on your preference */
+  padding-right: 32px !important;
 }
 
 .clear-icon {
   position: absolute !important;
   top: 50% !important;
   transform: translateY(-65%);
-  right: 8px; /* Adjust the right distance based on your preference */
+  right: 8px;
   cursor: pointer;
 }
 
 .clear-icon:hover {
-  color: #333; /* Change color on hover if desired */
+  color: #333;
 }

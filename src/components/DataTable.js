@@ -1,6 +1,5 @@
 import React from "react";
-import { useState } from 'react';
-
+import { useState } from "react";
 
 const DATA_DATA_COLUMNS = [
   "county",
@@ -8,11 +7,12 @@ const DATA_DATA_COLUMNS = [
   "PC_offense",
   // "race",
   // "decision",
-//   "number",
-//   "rate_per_100_pop",
-//   "disparity_gap_pop_w",
+  //   "number",
+  //   "rate_per_100_pop",
+  //   "disparity_gap_pop_w",
   // "Offenses",
   "Race",
+  "Gender",
   "Year",
   "Event Point",
   "Raw numbers",
@@ -22,8 +22,6 @@ const DATA_DATA_COLUMNS = [
   "Disparity gap per prior event point",
 ];
 
-
-
 const DataTable = ({ data }) => {
   const itemsPerPage = 20;
   const [currentPage, setCurrentPage] = useState(1);
@@ -32,17 +30,17 @@ const DataTable = ({ data }) => {
       setCurrentPage(currentPage - 1);
     }
   };
-  
+
   const goToNextPage = () => {
     if (currentPage < Math.ceil(data.length / itemsPerPage)) {
       setCurrentPage(currentPage + 1);
     }
   };
-  
+
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
   const visibleData = data.slice(startIndex, endIndex);
-  
+
   return (
     <div className="table-container">
       <table className="ui celled table">
@@ -101,6 +99,5 @@ const DataTable = ({ data }) => {
     </div>
   );
 };
-
 
 export default DataTable;

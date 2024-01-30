@@ -121,11 +121,10 @@ const Select = ({
                 />{" "}
                 {option.text}
                 {label === "Measurement" &&
-                  option.text === "Prior event point" && (
+                  option.text === "Rate per prior event point" && (
                     <div className="description">
-                      No disparity gap per prior event information is available
-                      for arrests because arrests are the beginning of the
-                      process.
+                      No rate per prior event information is available for
+                      arrests because arrests are the beginning of the process.
                     </div>
                   )}
               </li>

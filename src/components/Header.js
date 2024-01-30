@@ -12,7 +12,9 @@ const Header = () => {
           />
         </a>
         <p className="website-name">
-          <span className="large-initial">R</span>acial <span className="large-initial">J</span>ustice <span className="large-initial">A</span>ct Tool
+          <span className="large-initial">R</span>acial{" "}
+          <span className="large-initial">J</span>ustice{" "}
+          <span className="large-initial">A</span>ct Tool
         </p>
       </div>
       <div className="right">
@@ -24,6 +26,6 @@ const Header = () => {
       </div>
     </div>
   );
-}
+};
 
 export default Header;

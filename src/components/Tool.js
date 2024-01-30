@@ -23,11 +23,8 @@ const RACES = {
   Black: "Black",
   Hispanic: "Latino",
   AAPI: "Asian / Pacific Islander",
-  Native: "Native American",
-  //Other: "Other",
+  "Native American": "Native American",
 };
-
-const GENDERS = ["Male", "Female"]; // Add more as needed
 
 const getURLQueryParameterByName = (name, url = window.location.href) => {
   const sanitizedName = name.replace(/[[]]/g, "\\$&");
@@ -43,76 +40,22 @@ export default function App() {
   const [loading, setLoading] = useState(true);
   const [years, setYears] = useState([]);
   const [countiesAvailable, _] = useState([
-    "Alameda",
-    "Alpine",
-    "Amador",
-    "Butte",
-    "Calaveras",
-    "Colusa",
-    "Contra Costa",
-    "Del Norte",
-    "El Dorado",
-    "Fresno",
-    "Glenn",
-    "Humboldt",
-    "Imperial",
-    "Inyo",
-    "Kern",
-    "Kings",
-    "Lake",
-    "Lassen",
-    "Los Angeles",
-    "Madera",
-    "Marin",
-    "Mariposa",
-    "Mendocino",
-    "Merced",
-    "Modoc",
-    "Mono",
-    "Monterey",
-    "Napa",
-    "Nevada",
-    "Orange",
-    "Placer",
-    "Plumas",
-    "Riverside",
-    "Sacramento",
-    "San Benito",
-    "San Bernardino",
-    "San Diego",
-    "San Francisco",
-    "San Joaquin",
-    "San Luis Obispo",
-    "San Mateo",
-    "Santa Barbara",
-    "Santa Clara",
-    "Santa Cruz",
-    "Shasta",
-    "Sierra",
-    "Siskiyou",
-    "Solano",
-    "Sonoma",
-    "Stanislaus",
-    "Sutter",
-    "Tehama",
-    "Trinity",
-    "Tulare",
-    "Tuolumne",
-    "Ventura",
-    "Yolo",
-    "Yuba",
+    "All Counties",
+    "County 1",
+    "County 2",
+    "County 3",
+    "County 4",
+    "County 5",
   ]);
-  const [county, setCounty] = useState(["Santa Clara"]);
+  const [county, setCounty] = useState("All Counties");
   const [decisionPointsAvailable, setDecisionPointsAvailable] = useState([]);
   const [decisionPoints, setDecisionPoints] = useState([]);
   const [offensesAvailable, setOffensesAvailable] = useState([]);
-  const [genders, setGenders] = useState([]);
-  const [gender, setGender] = useState("All Genders");
   const [offenses, setOffenses] = useState([]);
+  //const [gendersAvailable, setGendersAvailable] = useState([]);
+  //const [genders, setGenders] = useState([]);
   const [races, setRaces] = useState(Object.keys(RACES));
-
   const [racesAvailable, setracesAvailable] = useState([]);
-
   const [measurement, setMeasurement] = useState("Raw numbers");
   const [chartConfig, setChartConfig] = useState({
     ratio: 1,
@@ -134,11 +77,41 @@ export default function App() {
   const onDataTableDisplayToggled = () => {
     setShowTable(!showTable);
   };
+  const getRaces = (chart) => {
+    let _races = [];
+
+    for (let year of chart) {
+      for (let ep of year.data) {
+        for (let race in ep.items) {
+          if (!_races.includes(race)) {
+            _races.push(race);
+          }
+        }
+      }
+    }
+
+    return Object.fromEntries(
+      Object.entries(RACES).filter(([key]) => _races.includes(key)),
+    );
+  };
   const filter = (
     { decisionPoints, races, offenses, years, measurement, genders },
     records = fullRecords,
   ) => {
+    const allowedEventPoints = [
+      "Charge",
+      "Conviction",
+      "Prison sentence",
+      "Felony conviction",
+    ];
     const raw = records.filter((r) => {
+      if (
+        measurement === "Rate per prior event point" &&
+        !allowedEventPoints.includes(r["Event Point"])
+      ) {
+        // Exclude records with measurement "Rate per prior event point" and other event points
+        return false;
+      }
       if (races.length > 0 && !races.includes(r.Race)) {
         return false;
       }
@@ -151,6 +124,9 @@ export default function App() {
       if (offenses.length > 0 && !offenses.includes(r.Offenses)) {
         return false;
       }
+      /* if (genders.length > 0 && !genders.includes(r.Gender)) {
+        return false;
+      }*/
       if (!years.includes(r.Year)) {
         return false;
       }
@@ -191,23 +167,23 @@ export default function App() {
       raw,
       chart: Object.values(filtered).map((item) => {
         item.data = Object.values(item.data).map((d) => {
-          d.items = Object.values(d.items).reduce(
-            (acc, dd) => {
-              Object.keys(dd.items).forEach((k) => {
-                let temp = acc[k] + (dd.items[k] || 0);
-                if (measurement === "Raw numbers") {
-                  temp = Math.ceil(temp);
-                } else {
-                  temp = Number(Number(temp).toFixed(2));
-                }
-                acc[k] = temp;
-                return acc;
-              });
-
+          d.items = Object.values(d.items).reduce((acc, dd) => {
+            Object.keys(dd.items).forEach((k) => {
+              if (!(k in acc)) {
+                acc[k] = 0;
+              }
+              let temp = acc[k] + (dd.items[k] || 0);
+              if (measurement === "Raw numbers") {
+                temp = Math.ceil(temp);
+              } else {
+                temp = Number(Number(temp).toFixed(2));
+              }
+              acc[k] = temp;
               return acc;
-            },
-            { AAPI: 0, Black: 0, Hispanic: 0, White: 0, Native: 0 },
-          );
+            });
+
+            return acc;
+          }, {});
           return d;
         });
         return item;
@@ -221,17 +197,19 @@ export default function App() {
     setLoading(true);
     const parser = new PublicGoogleSheetsParser();
     parser
-      .parse("1TNp5GmKMqmfO8xsjqjxXMB2n1POzy_8m4nz9c0x_LQI", sheet)
+      .parse("1mo1CvXXVMoyFDciUwvoNI_0T6LwB5Yl2U4Q6COd_0JI", sheet)
       .then((originItems) => {
         let _years = [];
         const _decisionPoints = [];
         const _offenses = [];
         const _races = [];
+        //const _genders = [];
 
         const items = originItems.map((item) => {
           item.Offenses = item.PC_offense;
           item.Race = item.race;
-          item.Year = item.year || "All years";
+          //item.Gender = item.gender;
+          item.Year = item.year;
           item["Event Point"] = item.decision;
           item["Raw numbers"] = item.number;
           item["Rate per population"] = isNaN(item.rate_per_100_pop)
@@ -255,6 +233,9 @@ export default function App() {
           if (_years.indexOf(item["Year"]) === -1) {
             _years.push(item["Year"]);
           }
+          /*  if (_genders.indexOf(item["Gender"]) === -1) {
+             _genders.push(item["Gender"]);
+             }*/
           if (_decisionPoints.indexOf(item["Event Point"]) === -1) {
             _decisionPoints.push(item["Event Point"]);
           }
@@ -266,7 +247,11 @@ export default function App() {
           }
         });
         _years = _years.reverse().sort((a, b) => {
-          if (a === "2010-2021") {
+          if (a === "All Years") {
+            return -1;
+          } else if (b === "All Years") {
+            return 1;
+          } else if (a === "2010-2021") {
             return -1;
           } else if (b === "2010-2021") {
             return 1;
@@ -274,12 +259,16 @@ export default function App() {
             return b - a;
           }
         });
+        //const defaultGender = _genders[0];
         const mostRecentYear = _years[0];
+        // const defaultOffense = _offenses[0];
         setYears([mostRecentYear]);
         setYearsAvailable(_years);
+        // setGendersAvailable(_genders);
+        //setGenders([defaultGender]);
         setDecisionPointsAvailable(_decisionPoints);
         setDecisionPoints(_decisionPoints);
-        setOffenses(_offenses);
+        setOffenses(["459 PC-BURGLARY"]);
         setOffensesAvailable(_offenses);
         setFullRecords(items);
         setracesAvailable(_races);
@@ -288,8 +277,9 @@ export default function App() {
         filter(
           {
             races: _races,
+            // genders: [defaultGender],
             decisionPoints: decisionPoints,
-            offenses: _offenses,
+            offenses: ["459 PC-BURGLARY"],
             years: [mostRecentYear],
             measurement,
           },
@@ -299,7 +289,7 @@ export default function App() {
   };
 
   useEffect(() => {
-    const sheet = getURLQueryParameterByName("sheet") || "Santa Clara";
+    const sheet = getURLQueryParameterByName("sheet") || "All Counties";
     fetchData(sheet).catch((e) => {});
   }, []);
 
@@ -308,7 +298,7 @@ export default function App() {
     await fetchData(value);
     filter({
       races,
-      genders,
+      //genders,
       decisionPoints,
       years,
       offenses,
@@ -321,7 +311,7 @@ export default function App() {
     filter({
       races,
       decisionPoints,
-      genders,
+      // genders,
       years: values,
       offenses,
       measurement,
@@ -340,7 +330,7 @@ export default function App() {
         races,
         decisionPoints: values,
         offenses,
-        genders,
+        // genders,
         years,
         measurement,
       });
@@ -358,6 +348,7 @@ export default function App() {
       filter({
         races: values,
         decisionPoints,
+        // genders,
         offenses,
         years,
         measurement,
@@ -365,7 +356,10 @@ export default function App() {
     }
   };
 
-  const onGendersChange = (values) => {
+  /*const onGendersChange = (values) => {
+    if (!values || values.length === 0) {
+      return;
+    }
     setGenders(values);
     if (values.length === 0) {
       setFilteredRecords({
@@ -382,12 +376,15 @@ export default function App() {
         measurement,
       });
     }
-  };
+  };*/
   const onOffensesChange = (values) => {
+    if (!values || values.length === 0) {
+      return;
+    }
     setOffenses(values);
     filter({
       races,
-      genders,
+      // genders,
       decisionPoints,
       offenses: values,
       years,
@@ -400,8 +397,7 @@ export default function App() {
       setMeasurement(value);
       if (
         value === "Disparity gap per population" ||
-        value === "Disparity gap per prior event point" ||
-        value === "Rate per prior event point"
+        value === "Disparity gap per prior event point"
       ) {
         setChartConfig({
           base: "white",
@@ -421,7 +417,7 @@ export default function App() {
 
       filter({
         races,
-        genders,
+        //genders,
         decisionPoints,
         offenses,
         years,
@@ -436,7 +432,7 @@ export default function App() {
 
       filter({
         races,
-        genders,
+        //genders,
         decisionPoints,
         offenses,
         years,
@@ -483,6 +479,7 @@ export default function App() {
           <PrivateSelect
             label="Counties"
             value={county}
+            multiple={false}
             onChange={onCountyChange}
             options={countiesAvailable.map((county) => ({
               text: county,
@@ -508,9 +505,9 @@ export default function App() {
             multiple={true}
             value={races}
             onChange={onRacesChange}
-            options={racesAvailable.map((dp) => ({
-              text: dp,
-              value: dp,
+            options={racesAvailable.map((r) => ({
+              text: r,
+              value: r,
             }))}
           />
         </div>
@@ -519,7 +516,7 @@ export default function App() {
           <PrivateSelect
             label="Offenses"
             value={offenses}
-            multiple={true}
+            multiple={false}
             onChange={onOffensesChange}
             options={offensesAvailable.map((o) => ({
               text: o,
@@ -538,14 +535,6 @@ export default function App() {
             }))}
           />
         </div>
-
-        <div className="filter">
-          <PrivateSelect label="Gender" value={GENDERS} />
-        </div>
-
-        <div className="filter">
-          <PrivateSelect label="Priors" />
-        </div>
       </div>
       <div className="chart-selected">
         <h2>
@@ -555,15 +544,16 @@ export default function App() {
           dangerouslySetInnerHTML={{
             __html: [
               MEASUREMENTS_MAP[measurement],
-              years.length === yearsAvailable.length
-                ? "All Years"
-                : years.join(", "),
               decisionPoints.length === decisionPointsAvailable.length
                 ? "All Event Points"
                 : decisionPoints.join(", "),
-              offenses.length === offensesAvailable.length
-                ? "All Offenses"
-                : offenses.join(", "),
+              years.length === yearsAvailable.length
+                ? "All Years"
+                : years.join(", "),
+              races.length === racesAvailable.length
+                ? "All Races"
+                : races.join(", "),
+              `${offenses}`,
             ]
               .filter((item) => !!item)
               .map((item) => `<span>${item}</span>`)
@@ -572,18 +562,22 @@ export default function App() {
         />
       </div>
       <div className="chart-containers">
-        {filteredRecords.chart.length === 0 ? (
-          <div style={{ textAlign: "center", fontWeight: "bold" }}>
-            *Select an Event Point
-          </div>
-        ) : loading ? (
+        {loading ? (
           <div className="loading-animation-centered">
             <Grid />
+          </div>
+        ) : decisionPoints.length === 0 ? (
+          <div style={{ textAlign: "center", fontWeight: "bold" }}>
+            Select an Event Point.
+          </div>
+        ) : filteredRecords.chart.length === 0 ? (
+          <div style={{ textAlign: "center", fontWeight: "bold" }}>
+            Unable to display due to insufficient data.
           </div>
         ) : (
           <IconCharts
             data={filteredRecords.chart}
-            races={RACES}
+            races={getRaces(filteredRecords.chart)}
             base={chartConfig.base}
             measurement={measurement}
           />

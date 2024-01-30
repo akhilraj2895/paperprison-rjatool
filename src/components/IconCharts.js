@@ -20,81 +20,48 @@ const PersonIcon = ({
   const maskHeight = {
     height: `${valueRoof * 100 - value * 100}%`,
   };
-
   if (valueRoof === 0 && scale !== 1) {
     onDisclaimerChange("N/A");
-  } else if (scale === 1 && valueRoof === 0) {
+  } else if (scale == 1 && valueRoof === 0) {
     onDisclaimerChange("0.0");
   }
-
   return (
     <div className="icon-chart-data">
-      {valueRoof > 0 && label >= 10 ? (
-        <>
-          {Array(Math.min(valueRoof, 9))
+      {(valueRoof > 0 && label >= 10) || scale == 1 ? (
+        valueRoof === 0 ? (
+          <div className="icon-chart-data-point">
+            <div className="icon-person icon-person-placeholder" />
+            <span className="icon-chart-data-point-mask">
+              <div className="icon-chart-data-label">0.0</div>
+            </span>
+          </div>
+        ) : (
+          Array(valueRoof)
             .fill(0)
-            .map((_, index) => (
-              <div className="icon-chart-data-point" key={index}>
-                <svg
-                  aria-label="Person"
-                  className={`icon-person re-${race}`}
-                  title={valueRoof}
-                >
-                  <use href="/images/sprites.svg#person"></use>
-                </svg>
-                <span
-                  className="icon-chart-data-point-mask"
-                  style={valueRoof - 1 === index ? maskHeight : {}}
-                >
-                  {valueRoof - 1 === index && (
-                    <div className="icon-chart-data-label">
-                      {formatNumber(label)}
-                    </div>
-                  )}
-                </span>
-              </div>
-            ))}
-          {valueRoof > 9 && (
-            <div className="icon-chart-data-point" key="break">
-              {/* Bolt-shaped break line SVG */}
-              <svg
-                className="bolt-icon"
-                viewBox="0 0 64 64"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <g
-                  transform="translate(0.000000,64.000000) scale(0.100000,-0.100000)"
-                  fill="#000000"
-                  stroke="none"
-                >
-                  <path d="M335 458 c-3 -7 -13 -60 -23 -118 l-18 -105 -27 59 c-15 32 -27 62 -27 67 0 24 -31 5 -44 -26 l-15 -35 -91 0 c-69 0 -91 -3 -88 -12 3 -9 35 -14 100 -16 l94 -3 13 28 13 27 30 -69 c50 -116 55 -114 78 23 18 102 22 103 40 10 13 -68 29 -73 54 -21 16 34 19 36 31 20 10 -14 28 -17 99 -17 66 0 87 3 84 13 -3 8 -31 13 -81 15 -64 2 -79 6 -90 22 -17 28 -34 25 -51 -7 -17 -32 -19 -28 -36 62 -6 33 -14 68 -16 78 -6 20 -23 23 -29 5z" />
-                </g>
-              </svg>
-              <div className="icon-person icon-person-placeholder" />
-              <span className="icon-chart-data-point-mask">
-                <div className="icon-chart-data-label"></div>
-              </span>
-            </div>
-          )}
-          {valueRoof - 1 >= 9 && (
-            <div className="icon-chart-data-point" key={valueRoof - 1}>
-              {/* Render the 10th icon */}
-              <svg
-                aria-label="Person"
-                className={`icon-person re-${race}`}
-                title={valueRoof}
-              >
-                <use href="/images/sprites.svg#person"></use>
-              </svg>
-              <div className="icon-person icon-person-placeholder" />
-              <span className="icon-chart-data-point-mask">
-                <div className="icon-chart-data-label">
-                  {formatNumber(label)}
+            .map((_, index) => {
+              return (
+                <div className="icon-chart-data-point" key={index}>
+                  <svg
+                    aria-label="Person"
+                    className={`icon-person re-${race}`}
+                    title={valueRoof}
+                  >
+                    <use href="/images/sprites.svg#person"></use>
+                  </svg>
+                  <span
+                    className="icon-chart-data-point-mask"
+                    style={valueRoof - 1 === index ? maskHeight : {}}
+                  >
+                    {valueRoof - 1 === index && (
+                      <div className="icon-chart-data-label">
+                        {formatNumber(label)}
+                      </div>
+                    )}
+                  </span>
                 </div>
-              </span>
-            </div>
-          )}
-        </>
+              );
+            })
+        )
       ) : (
         <div className="icon-chart-data-point">
           <div className="icon-person icon-person-placeholder" />
@@ -106,16 +73,17 @@ const PersonIcon = ({
     </div>
   );
 };
+
 const CHART_DISCLAIMER = {
   "N/A":
-    "N/A: Our tool displays N/A when when there are 10 or less underlying observations. Additionally, no disparity gap per prior event information is available for arrests.",
+    "N/A: Our tool displays N/A when when there are 10 or less underlying observations.",
   "0.0":
     "Anywhere a disparity gap reads 0.0, it means that there were no white adults in the system at that point for a comparison of rates. Please see raw numbers and rates to see how adults of color are impacted by the decision point.",
 };
 
 const SCALE = {
-  /*100: 10,
-  500: 50,*/
+  100: 10,
+  500: 50,
   1000: 100,
   5000: 500,
   10000: 1000,
