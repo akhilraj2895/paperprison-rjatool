@@ -7,7 +7,7 @@ const Header = () => {
         <a href="https://paperprisons.org">
           <img
             src="https://paperprisons.org/images/logo.png"
-            alt="Paper Prisons RJA Tool"
+            alt="Paper Prisons RJA Demo Tool"
             className="logo"
           />
         </a>
