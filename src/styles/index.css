@@ -334,9 +334,7 @@
   text-decoration: none;
   padding: 8px 16px;
   border-radius: 20px;
-  transition:
-    background-color 0.3s,
-    color 0.3s;
+  transition: background-color 0.3s, color 0.3s;
   margin: 5px;
 }
 
@@ -600,12 +598,10 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  color: #333;
+  color: #4a5568;
   padding: 20px 20px;
   border-radius: 10px 10px 0 0;
-  transition:
-    background 0.3s,
-    box-shadow 0.3s;
+  transition: background 0.3s, box-shadow 0.3s;
 }
 
 .left {
@@ -726,4 +722,3 @@
 .clear-icon:hover {
   color: #333;
 }
-
