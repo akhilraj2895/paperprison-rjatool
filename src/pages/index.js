@@ -149,11 +149,11 @@ export default function App() {
         <p>
           You can customize the data presented by year, county, event point,
           race/ethnicity, measurement (metric), and offense. Data you see will
-          depend upon your customization for each category. The event points
-          include arrests, charges filed in court, convictions, felony
-          convictions, and prison sentences. We explain the different
-          measurements available and how they were calculated, as well as some
-          limitations of the data, below.
+          depend upon your customization for each category. The{" "}
+          <strong>event points</strong> include arrests, charges filed in court,
+          convictions, felony convictions, and prison sentences. We explain the
+          different <strong>measurements</strong> available and how they were
+          calculated, as well as some limitations of the data, below.
         </p>
         <h3>Incidents & Lifecycle of a Case </h3>
         <p>
@@ -245,124 +245,121 @@ export default function App() {
           OFFICER/ETC”) most commonly attached to that offense in the CORI data.
         </p>
         <h3>Measurements</h3>
-        <p>
-          You can select five different metrics to view data on this site: raw
-          numbers, rate per population, rate per prior event point, disparity
-          gap per population, and disparity gap per prior event point. Aspects
-          of the data are described below.
-        </p>
-        <p>
-          <b>Raw numbers</b> is a count of the actual number of incidents in the
-          selected category defined by county, offense, year, race, and event
-          point. For example, a query of the tool for convictions in Alameda
-          County in 2016 for Black persons on the offense PC 148(A)(1) returns a
-          raw number of 58. This means there were 58 incidents involving
-          convictions of Black persons on the charge of PC 148(A)(1) recorded in
-          Alameda County in 2016. The tool counts incidents, not individuals, so
-          58 conviction incidents might represent fewer than 58 individuals,
-          because a given individual might have been charged with the same
-          offense on more than one occasion.
-        </p>
-        <p>
-          <b>Rates per population</b> measures the rate at which a given event
-          or decision occurs for a selected racial or ethnic group, relative to
-          that group’s total population in the county. Specifically, it is the
-          raw number of criminal justice decisions of the requested type for the
-          requested ethnic group during the requested year, per 100 individuals
-          of that group in the county population. Population data come from the
-          American Community Survey (ACS), which is a large national survey run
-          by the U.S. Census Bureau. All of our population estimates for
-          different ethnicities use the 5-year ACS sample for the combined
-          period 2016-2020. ACS summary tables were accessed through the Census
-          Bureau API interface (see{" "}
-          <a href="https://www.census.gov/programs-surveys/acs/data/data-via-api.html">
-            {" "}
-            https://www.census.gov/programs-surveys/acs/data/data-via-api.html
-          </a>
-          ), using the R package tidycensus (see{" "}
-          <a href="https://walker-data.com/tidycensus/">
-            https://walker-data.com/tidycensus/
-          </a>
-          ).You can download the Census data at{" "}
-          <a
-            href="https://docs.google.com/spreadsheets/d/1acKdr3w9NlALgfUt8nLbtSWDqEfVxyQLKuz3r_pGkes/edit#gid=840124101"
-            target="_blank"
-          >
-            here
-          </a>
-          {"."}
-        </p>
-        <p>
-          Example: If there were 350 incidents in which Hispanic individuals had
-          been arrested in county X on a charge of PC 459 (burglary) during the
-          year in question, and the Hispanic population of county X was 100,000,
-          the rate per 100 population would be 350/(100,000/100) = 0.35 per 100
-          population.
-        </p>
-
-        <p>Definitions of key metrics:</p>
-        <p>
-          <b>Rate per population </b> measures the rate at which a given event
-          or decision occurs for a selected racial or ethnic group, relative to
-          that group’s population in the county. Specifically, it is the number
-          of criminal justice decisions of the requested type for the requested
-          ethnic group during the requested year, per 100 individuals of that
-          group in the county population. For example, for arrests on the charge
-          of burglary (PC 459), if 350 Hispanic individuals had been arrested in
-          county X on a charge of PC 459 during the year in question, and the
-          Hispanic population of the county was 100,000, the rate per population
-          would be 350/1000 = 0.35 per 100 population.{" "}
-        </p>
-        <p>
-          <b>Rate per prior event point</b> measures the rate (in percent) at
-          which a given event or decision occurs for a selected racial or ethnic
-          group, relative to the number of people in that group at risk of that
-          event. Specifically, it is the number of criminal justice decisions of
-          the requested type for the requested ethnic group during the requested
-          year, divided by the number of individuals of that group who had
-          reached the immediately prior step or event point in the criminal
-          justice process and were thus “at risk” of this decision.
-        </p>
-        <p>
-          Example: Suppose there were 100 incidents in a particular county and
-          year in which Hispanic individuals were charged in court with burglary
-          (PC 459), and in 60 of those incidents they were convicted of
-          burglary. Then the rate of conviction per prior event point (charge in
-          court) would be 60/100 = 0.6 or 60%.
-        </p>
-        <p>
-          <b>Disparity gap per population</b> compares the rate per population
-          of a given racial/ethnic group with that of non-Hispanic White
-          individuals. The racial gap can be considered the relative chance that
-          a person of the given race experiences a certain outcome or decision,
-          relative to the chances of a non-Hispanic White adult, given
-          underlying populations.
-        </p>
-        <p>
-          For example, suppose that in a particular county in a particular year,
-          2 Black adults experienced felony convictions for burglary for every
-          100 Black adults in the population, whereas only 1 per 100
-          non-Hispanic White adults experienced a felony conviction for
-          burglary. Then the disparity gap for Black relative to White is 2/1 =
-          2.{" "}
-        </p>
-        <p>
-          <b>Disparity gap per prior event point</b> compares the rate per prior
-          event point of a given racial/ethnic group with that of non-Hispanic
-          White individuals. It shows the chances that a person of the given
-          race/ethnicity experiences a certain outcome or decision, given that
-          they have reached a specific prior event point, relative to the
-          chances of a non-Hispanic White adult, given that they have reached
-          the same prior event point.
-        </p>
-        <p>
-          For example, suppose that in a particular county in a particular year,
-          of 100 Black adults charged with burglary in court, 50 are convicted,
-          whereas 40 per 100 White non-Hispanic adults charged with the same
-          offense are convicted. Then the disparity gap for Black relative to
-          White is 50/40 = 1.25.
-        </p>
-        <h3>Racial Classifications</h3>
+        <p>Five different metrics can be viewed in the tool:</p>
+        <ol>
+          <li>
+            <p>
+              <b>Raw number</b> is a count of the actual number of incidents in
+              the selected category defined by county, offense, year, race, and
+              event point. For example, a query of the tool for convictions in
+              Alameda County in 2016 for Black persons on the offense PC
+              148(A)(1) returns a raw number of 58. This means there were 58
+              incidents involving convictions of Black persons on the charge of
+              PC 148(A)(1) recorded in Alameda County in 2016. The tool counts
+              incidents, not individuals, so 58 conviction incidents might
+              represent fewer than 58 individuals, because a given individual
+              might have been charged with the same offense on more than one
+              occasion.
+            </p>
+          </li>
+          <li>
+            <p>
+              <b>Rate per population</b> measures the rate at which a given
+              event or decision occurs for a selected racial or ethnic group,
+              relative to that group’s total population in the county.
+              Specifically, it is the raw number of criminal justice decisions
+              of the requested type for the requested ethnic group during the
+              requested year, per 100 individuals of that group in the county
+              population. Population data come from the American Community
+              Survey (ACS), which is a large national survey run by the U.S.
+              Census Bureau. All of our population estimates for different
+              ethnicities use the 5-year ACS sample for the combined period
+              2016-2020. ACS summary tables were accessed through the Census
+              Bureau API interface (see{" "}
+              <a href="https://www.census.gov/programs-surveys/acs/data/data-via-api.html">
+                {" "}
+                https://www.census.gov/programs-surveys/acs/data/data-via-api.html
+              </a>
+              ), using the R package tidycensus (see{" "}
+              <a href="https://walker-data.com/tidycensus/">
+                https://walker-data.com/tidycensus/
+              </a>
+              ). You can download the Census data at{" "}
+              <a
+                href="https://docs.google.com/spreadsheets/d/1acKdr3w9NlALgfUt8nLbtSWDqEfVxyQLKuz3r_pGkes/edit#gid=840124101"
+                target="_blank"
+              >
+                this link
+              </a>
+              {"."}
+            </p>
+            <p>
+              Example: If there were 350 incidents in which Hispanic individuals
+              had been arrested in county X on a charge of PC 459 (burglary)
+              during the year in question, and the Hispanic population of county
+              X was 100,000, the rate per 100 population would be
+              350/(100,000/100) = 0.35 per 100 population.
+            </p>
+          </li>
+          <li>
+            <p>
+              <b>Rate per prior event point</b> measures the rate (in percent)
+              at which a given event or decision occurs for a selected racial or
+              ethnic group, relative to the number of people in that group at
+              risk of that event. Specifically, it is the number of criminal
+              justice decisions of the requested type for the requested ethnic
+              group during the requested year, divided by the number of
+              individuals of that group who had reached the immediately prior
+              step or event point in the criminal justice process and were thus
+              “at risk” of this decision.
+            </p>
+            <p>
+              Example: Suppose there were 100 incidents in a particular county
+              and year in which Hispanic individuals were charged in court with
+              burglary (PC 459), and in 60 of those incidents they were
+              convicted of burglary. Then the rate of conviction per prior event
+              point (charge in court) would be 60/100 = 0.6 or 60%.
+            </p>
+          </li>
+          <li>
+            <p>
+              <b>Disparity gap per population</b> compares the rate per
+              population of a given racial/ethnic group with that of
+              non-Hispanic White individuals. The racial gap can be considered
+              the chance that a person of the given race/ethnicity experiences a
+              certain outcome or decision, relative to the chances of a
+              non-Hispanic White adult, given underlying populations.
+            </p>
+            <p>
+              Example: Suppose that in a particular county in a particular year,
+              there were 2 incidents in which Black adults experienced felony
+              convictions for burglary for every 100 Black individuals in the
+              population, and 1 such incident per 100 non-Hispanic White
+              individuals. Then the disparity gap per population for Black
+              relative to White is 2/1 = 2.{" "}
+            </p>
+          </li>
+          <li>
+            <p>
+              <b>Disparity gap per prior event point</b> compares the rate per
+              prior event point of a given racial/ethnic group with that of
+              non-Hispanic White individuals. It shows the chances that a person
+              of the given race/ethnicity experiences a certain outcome or
+              decision, given that they have reached a specific prior event
+              point, relative to the chances of a non-Hispanic White adult,
+              given that they have reached the same prior event point.
+            </p>
+            <p>
+              Example: Suppose that in a particular county in a particular year,
+              of 100 incidents in which Black individuals were charged with
+              burglary in court, 50 incidents resulted in convictions, compared
+              with 40 per 100 for non-Hispanic White individuals. Then the
+              disparity gap per prior event point for Black relative to White is
+              50/40 = 1.25.
+            </p>
+          </li>
+        </ol>
+        <h3>Racial classifications</h3>
         <p>
           The DOJ CORI data source indicates the racial/ethnic identity of each
           individual with a single mutually exclusive “race” identifier. The
@@ -423,7 +420,7 @@ export default function App() {
         </p>
       </GenericPage>
       <GenericPage id="acknowledgements">
-        <h2>Acknowledgement</h2>
+        <h2>Acknowledgements</h2>
         <p>
           The styling of this website was inspired by the{" "}
           <a href="https://californiadata.burnsinstitute.org/about">

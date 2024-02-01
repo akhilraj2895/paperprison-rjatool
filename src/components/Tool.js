@@ -19,7 +19,8 @@ const MEASUREMENTS_MAP = {
   "Rate per population": "Rate per unit population",
   "Rate per prior event point": "Rate per prior decision point",
   "Disparity gap per population": "Disparity gap vs. white adults",
-  "Disparity gap per prior event point":"Disparity gap per prior decision point",
+  "Disparity gap per prior event point":
+    "Disparity gap per prior decision point",
 };
 const RACES = {
   White: "White",
@@ -80,7 +81,7 @@ export default function App() {
 
   const filter = (
     { decisionPoints, races, offenses, years, measurement /*, genders*/ },
-    records = fullRecords,
+    records = fullRecords
   ) => {
     const allowedEventPoints = [
       "Charge",
@@ -202,7 +203,7 @@ export default function App() {
             ? 0
             : item.disparity_gap_pop_w;
           item["Disparity gap per prior event point"] = isNaN(
-            item.disparity_gap_cond_w,
+            item.disparity_gap_cond_w
           )
             ? 0
             : item.disparity_gap_cond_w;
@@ -258,7 +259,7 @@ export default function App() {
           // are present in the dataset
           _years = years.filter((y) => _years.includes(y));
           _decisionPoints = decisionPoints.filter((d) =>
-            _decisionPoints.includes(d),
+            _decisionPoints.includes(d)
           );
           _offenses = _offenses.includes(offenses[0])
             ? [offenses[0]]
@@ -280,7 +281,7 @@ export default function App() {
             measurement: measurement,
             //genders: genders,
           },
-          items,
+          items
         );
 
         setLoading(false);
@@ -438,17 +439,25 @@ export default function App() {
   return (
     <div className="tool" id="tool">
       <p className="generic-page">
-        This site provides a dummy data version of a tool that we wiil be
+        This site provides a dummy data version of a tool that we will be
         launching (pending approval from the California Department of Justice)
         that will provide summary data representing the raw numbers, rates per
         population, and disparity gaps by race of adults in the California
-        criminal justice system using data provided by the CalDOJ and Census
+        criminal justice system using data provided by the CalDOJ and the Census
         Department. To be notified when the tool becomes live, please email us
         at{" "}
         <a href="mailto:rja@paperprisons.org?subject=Feedback%20for%20Your%20App">
           rja@paperprisons.org
         </a>
-        , comments or feedback on the tool’s design welcome too.
+        ; we also welcome your comments and or feedback on the tool’s design are
+        welcome too. (See also{" "}
+        <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4392014">
+          <i>
+            Proving Actionable Racial Disparity Under the California Racial
+            Justice Act
+          </i>
+        </a>
+        , 76 UC L. Journal 1 (2023))
       </p>
       <div className="filters">
         <div>Customize: </div>
@@ -562,7 +571,7 @@ export default function App() {
           <IconCharts
             data={filteredRecords.chart}
             races={Object.fromEntries(
-              Object.entries(RACES).filter(([key]) => races.includes(key)),
+              Object.entries(RACES).filter(([key]) => races.includes(key))
             )}
             eventPoints={decisionPoints}
             base={chartConfig.base}

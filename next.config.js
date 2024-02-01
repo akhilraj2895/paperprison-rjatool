@@ -1,10 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   // basePath: "/RJA",
-  // assetPrefix: "/TJA/",
+  // assetPrefix: "/RJA/",
   // images: {
   //   domains: ["paperprisons.org"],
-  //   path: "/TJA/_next/image",
+  //   path: "/RJA/_next/image",
   // },
   async rewrites() {
     return [
