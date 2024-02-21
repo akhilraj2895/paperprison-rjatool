@@ -43,11 +43,63 @@ export default function App() {
   const [years, setYears] = useState([]);
   const [countiesAvailable, _] = useState([
     "All Counties",
-    "County 1",
-    "County 2",
-    "County 3",
-    "County 4",
-    "County 5",
+    "Alameda",
+    "Amador",
+    "Butte",
+    "Calaveras",
+    "Colusa",
+    "Contra Costa",
+    "Del Norte",
+    "El Dorado",
+    "Fresno",
+    "Glenn",
+    "Humboldt",
+    "Imperial",
+    "Inyo",
+    "Kern",
+    "Kings",
+    "Lake",
+    "Lassen",
+    "Los Angeles",
+    "Madera",
+    "Marin",
+    "Mariposa",
+    "Mendocino",
+    "Merced",
+    "Modoc",
+    "Mono",
+    "Monterey",
+    "Napa",
+    "Nevada",
+    "Orange",
+    "Placer",
+    "Plumas",
+    "Riverside",
+    "Sacramento",
+    "San Benito",
+    "San Bernardino",
+    "San Diego",
+    "San Francisco",
+    "San Joaquin",
+    "San Luis Obispo",
+    "San Mateo",
+    "Santa Barbara",
+    "Santa Clara",
+    "Santa Cruz",
+    "Shasta",
+    "Sierra",
+    "Siskiyou",
+    "Solano",
+    "Sonoma",
+    "Stanislaus",
+    "Sutter",
+    "Tehama",
+    "Trinity",
+    "Tulare",
+    "Tuolumne",
+    "Ventura",
+    "Yolo",
+    "Yuba",
   ]);
   const [county, setCounty] = useState("All Counties");
   const [decisionPointsAvailable, setDecisionPointsAvailable] = useState([]);
@@ -70,7 +122,30 @@ export default function App() {
   });
   const [showTable, setShowTable] = useState(false);
   const onDataDownload = () => {
-    const ws = utils.json_to_sheet(filteredRecords.raw);
+    const selectedKeys = [
+      "county",
+      "PC_code",
+      "PC_offense",
+      "Race",
+      "Year",
+      "Event Point",
+      "Raw numbers",
+      "Rate per population",
+      "Rate per prior event point",
+      "Disparity gap per population",
+      "Disparity gap per prior event point",
+    ];
+    let jsonList = filteredRecords.raw;
+    const filteredJsonList = jsonList.map((obj) => {
+      const filteredObj = {};
+      selectedKeys.forEach((key) => {
+        if (obj.hasOwnProperty(key)) {
+          filteredObj[key] = obj[key];
+        }
+      });
+      return filteredObj;
+    });
+    const ws = utils.json_to_sheet(filteredJsonList);
     const wb = utils.book_new();
     utils.book_append_sheet(wb, ws, "Data");
     writeFileXLSX(wb, "PaperPrison - Data.xlsx");
@@ -81,7 +156,7 @@ export default function App() {
 
   const filter = (
     { decisionPoints, races, offenses, years, measurement /*, genders*/ },
-    records = fullRecords
+    records = fullRecords,
   ) => {
     const allowedEventPoints = [
       "Charge",
@@ -178,7 +253,7 @@ export default function App() {
     setLoading(true);
     const parser = new PublicGoogleSheetsParser();
     parser
-      .parse("1mo1CvXXVMoyFDciUwvoNI_0T6LwB5Yl2U4Q6COd_0JI", sheet)
+      .parse("16ljbmxFiYFSd8YcODRg5jg2yjJ2tOwjQxvURj7O3E18", sheet)
       .then((originItems) => {
         let _years = [];
         let _decisionPoints = [];
@@ -203,7 +278,7 @@ export default function App() {
             ? 0
             : item.disparity_gap_pop_w;
           item["Disparity gap per prior event point"] = isNaN(
-            item.disparity_gap_cond_w
+            item.disparity_gap_cond_w,
           )
             ? 0
             : item.disparity_gap_cond_w;
@@ -259,7 +334,7 @@ export default function App() {
           // are present in the dataset
           _years = years.filter((y) => _years.includes(y));
           _decisionPoints = decisionPoints.filter((d) =>
-            _decisionPoints.includes(d)
+            _decisionPoints.includes(d),
           );
           _offenses = _offenses.includes(offenses[0])
             ? [offenses[0]]
@@ -281,7 +356,7 @@ export default function App() {
             measurement: measurement,
             //genders: genders,
           },
-          items
+          items,
         );
 
         setLoading(false);
@@ -439,19 +514,26 @@ export default function App() {
   return (
     <div className="tool" id="tool">
       <p className="generic-page">
-        This site provides a dummy data version of a tool that we will be
-        launching (pending approval from the California Department of Justice)
-        that will provide summary data representing the raw numbers, rates per
+        This site provides summary data representing the raw numbers, rates per
         population, and disparity gaps by race of adults in the California
-        criminal justice system using data provided by the CalDOJ and the Census
-        Department. To be notified when the tool becomes live, please email us
-        at{" "}
+        criminal justice system using data provided by the California Department
+        of Justice as well as by the Census Department. Access the Census data{" "}
+        <a
+          href="https://docs.google.com/spreadsheets/d/1acKdr3w9NlALgfUt8nLbtSWDqEfVxyQLKuz3r_pGkes/edit#gid=840124101"
+          target="_blank"
+        >
+          here
+        </a>
+        {". "}
+        For questions or comments, please email us at{" "}
         <a href="mailto:rja@paperprisons.org?subject=Feedback%20for%20Your%20App">
           rja@paperprisons.org
-        </a>
-        ; we also welcome your comments and or feedback on the tool’s design are
-        welcome too. (See also{" "}
-        <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4392014">
+        </a>{" "}
+        (See also{" "}
+        <a
+          href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4392014"
+          target="_blank"
+        >
           <i>
             Proving Actionable Racial Disparity Under the California Racial
             Justice Act
@@ -535,9 +617,6 @@ export default function App() {
         </div>
       </div>
       <div className="chart-selected">
-        <p>
-          <strong>Demo Only - Populated with Fictitious Data</strong>
-        </p>
         <h2>
           <h2>{county}</h2>
         </h2>
@@ -571,7 +650,7 @@ export default function App() {
           <IconCharts
             data={filteredRecords.chart}
             races={Object.fromEntries(
-              Object.entries(RACES).filter(([key]) => races.includes(key))
+              Object.entries(RACES).filter(([key]) => races.includes(key)),
             )}
             eventPoints={decisionPoints}
             base={chartConfig.base}
